@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  list-style-type: none;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+}
+
+:root {
+  --navbar-bg-color: rgb(37, 37, 37);
+  --navbar-font-color: white;
+}
