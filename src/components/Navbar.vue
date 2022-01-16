@@ -29,21 +29,21 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      menuItems: ['Ana Sayfa', 'Hakkımda'],
+      menuItems: ["Ana Sayfa", "Hakkımda"],
       selectedMenuIndex: 0,
       clickedHamburger: false,
-      projectOwner: process.env.VUE_APP_PROJECT_OWNER
-    }
+      projectOwner: process.env.VUE_APP_PROJECT_OWNER,
+    };
   },
-  mounted () {
-    window.addEventListener('resize', event => {
+  mounted() {
+    window.addEventListener("resize", (event) => {
       this.clickedHamburger =
-        !(event.currentTarget.innerWidth < 765) && this.clickedHamburger
-    })
-  }
-}
+        !(event.currentTarget.innerWidth < 765) && this.clickedHamburger;
+    });
+  },
+};
 </script>
 
 <style scoped>
@@ -89,7 +89,7 @@ export default {
 }
 
 .navbar-menu li::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;

@@ -10,34 +10,30 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       footerDate: new Date(),
       socialMediaLinks: [
         {
-          icon: 'linkedin',
-          link: 'https://www.linkedin.com/in/mert-ulas/'
-
+          icon: "linkedin",
+          link: "https://www.linkedin.com/in/mert-ulas/",
         },
         {
-          icon: 'twitter',
-          link: 'https://twitter.com/mertulaas'
-
+          icon: "twitter",
+          link: "https://twitter.com/mertulaas",
         },
         {
-          icon: 'github',
-          link: 'https://github.com/MERTULAS'
-
+          icon: "github",
+          link: "https://github.com/MERTULAS",
         },
         {
-          icon: 'instagram',
-          link: 'https://www.instagram.com/mertulas1/?hl=tr'
-
-        }
-      ]
-    }
-  }
-}
+          icon: "instagram",
+          link: "https://www.instagram.com/mertulas1/?hl=tr",
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style></style>
