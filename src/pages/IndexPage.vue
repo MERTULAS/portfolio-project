@@ -2,8 +2,7 @@
   <div>
     <Navbar />
     <AnimationBackground :pointCount="50" />
-    <div class="index-body">
-    </div>
+    <div class="index-body"></div>
     <Footer />
   </div>
 </template>

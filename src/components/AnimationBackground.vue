@@ -11,14 +11,19 @@
 
 <script>
 class QuadTree {
-  constructor () {
+  constructor() {
     // QuadTree will be implemented.
   }
 }
 
 class Point {
   constructor(x, y, color, componentObject) {
-    [this.x, this.y, this.color, this.componentData] = [x, y, color, componentObject];
+    [this.x, this.y, this.color, this.componentData] = [
+      x,
+      y,
+      color,
+      componentObject,
+    ];
     this.xDir = Math.random() * 5;
     this.yDir = Math.random() * 5;
   }
@@ -32,7 +37,8 @@ class Point {
 
   update() {
     this.xDir *= this.x > this.componentData.canvasWidth || this.x < 0 ? -1 : 1;
-    this.yDir *= this.y > this.componentData.canvasHeight || this.y < 0 ? -1 : 1;
+    this.yDir *=
+      this.y > this.componentData.canvasHeight || this.y < 0 ? -1 : 1;
     this.x += this.xDir;
     this.y += this.yDir;
     this.draw();
@@ -61,19 +67,21 @@ export default {
       for (let point of this.pointList) {
         point.update();
       }
-  
-      
+
       for (let point1 of this.pointList) {
         for (let point2 of this.pointList) {
-          let manhattanDist = Math.abs(point1.x - point2.x) + Math.abs(point1.y - point2.y);
-          if ( manhattanDist < 300 ) {
+          let manhattanDist =
+            Math.abs(point1.x - point2.x) + Math.abs(point1.y - point2.y);
+          if (manhattanDist < 300) {
             this.context.beginPath();
-            this.context.strokeStyle = `rgba(200, 0, 0, ${100 / (1000 - manhattanDist)})`;
+            this.context.strokeStyle = `rgba(200, 0, 0, ${
+              100 / (1000 - manhattanDist)
+            })`;
             this.context.moveTo(point1.x, point1.y);
             this.context.lineTo(point2.x, point2.y);
             this.context.stroke();
           }
-      }
+        }
       }
       requestAnimationFrame(this.animationLoop);
     },
