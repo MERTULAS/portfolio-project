@@ -74,7 +74,7 @@ export default {
             Math.abs(point1.x - point2.x) + Math.abs(point1.y - point2.y);
           if (manhattanDist < 300) {
             this.context.beginPath();
-            this.context.strokeStyle = `rgba(200, 0, 0, ${
+            this.context.strokeStyle = `rgba(0, 155, 0, ${
               100 / (1000 - manhattanDist)
             })`;
             this.context.moveTo(point1.x, point1.y);

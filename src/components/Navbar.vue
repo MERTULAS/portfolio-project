@@ -66,10 +66,10 @@ export default {
   color: var(--navbar-font-color);
   padding: 0px 15px;
   margin: 0px 5px;
-  border-bottom: 1px solid teal;
-  border-left: 1px solid teal;
+  border-right: 5px solid teal;
+  border-left: 5px solid teal;
   border-radius: 10px;
-  border-bottom-right-radius: 0px;
+  /* border-bottom-right-radius: 0px; */
   font-size: 25px;
 }
 

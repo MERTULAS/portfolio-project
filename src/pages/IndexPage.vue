@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <AnimationBackground :pointCount="50" />
+    <AnimationBackground :pointCount="80" />
     <div class="index-body"></div>
     <Footer />
   </div>

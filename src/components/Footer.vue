@@ -70,7 +70,7 @@ export default {
 
 .social-media div {
   padding: 5px;
-  font-size: 25px;
+  font-size: 28px;
 }
 
 .social-media div:hover .anticon {
