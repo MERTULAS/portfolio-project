@@ -1,6 +1,11 @@
 <template>
   <div>
-    <canvas id="anim-canvas" :style="`width: 100%; height: calc(100vh - ${navbarHeight + footerHeight}px`"></canvas>
+    <canvas
+      id="anim-canvas"
+      :style="`width: 100%; height: calc(100vh - ${
+        navbarHeight + footerHeight
+      }px`"
+    ></canvas>
   </div>
 </template>
 
@@ -17,7 +22,7 @@ class Point {
     this.context.fill();
   }
 
-  update () {
+  update() {
     this.draw();
   }
 }
@@ -35,7 +40,7 @@ class Line {
     this.context.stroke();
   }
 
-  update () {
+  update() {
     this.draw();
   }
 }
@@ -53,14 +58,14 @@ export default {
     };
   },
   methods: {
-    animationLoop () {
+    animationLoop() {
       for (let point of this.pointList) {
         point.x += Math.floor((Math.random() * 2 - 1) * 10);
         point.y += Math.floor((Math.random() * 2 - 1) * 10);
         point.update();
       }
       requestAnimationFrame(this.animationLoop);
-    }
+    },
   },
   mounted() {
     let canvas = document.getElementById("anim-canvas");
