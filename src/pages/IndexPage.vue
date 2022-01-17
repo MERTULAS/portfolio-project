@@ -1,7 +1,9 @@
 <template>
   <div>
     <Navbar />
-    <GraphicsAnimation :pointCount="100" />
+    <AnimationBackground :pointCount="50" />
+    <div class="index-body">
+    </div>
     <Footer />
   </div>
 </template>
@@ -9,11 +11,11 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
-import GraphicsAnimation from "@/components/GraphicsAnimation.vue";
+import AnimationBackground from "@/components/AnimationBackground.vue";
 
 export default {
   components: {
-    GraphicsAnimation,
+    AnimationBackground,
     Navbar,
     Footer,
   },
