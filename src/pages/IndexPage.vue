@@ -1,26 +1,20 @@
 <template>
   <div>
-    <Navbar />
     <AnimationBackground :pointCount="80" />
     <div class="index-body">
       <h1>Welcome to my website</h1>
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
-import Footer from "@/components/Footer.vue";
 import AnimationBackground from "@/components/AnimationBackground.vue";
 
 export default {
+  name: "IndexPage",
   components: {
     AnimationBackground,
-    Navbar,
-    Footer,
   },
-  name: "IndexPage",
   data() {
     return {
       animatedTextBackup: null,

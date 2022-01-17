@@ -9,8 +9,9 @@
           v-for="(menuItem, index) in menuItems"
           :key="index"
           :class="index === selectedMenuIndex ? 'active-menu' : ''"
+          @click="() => (selectedMenuIndex = index)"
         >
-          {{ menuItem }}
+          <router-link :to="menuItem.path">{{ menuItem.title }}</router-link>
         </li>
       </ul>
       <div
@@ -32,7 +33,11 @@ export default {
   name: "Navbar",
   data() {
     return {
-      menuItems: ["Home", "My Project Details", "About Me"],
+      menuItems: [
+        { title: "Home", path: "/" },
+        { title: "My Project Details", path: "/projects" },
+        { title: "About Me", path: "/about" },
+      ],
       selectedMenuIndex: 0,
       clickedHamburger: false,
       projectOwner: process.env.VUE_APP_PROJECT_OWNER,
@@ -86,10 +91,13 @@ export default {
   line-height: 1;
   padding: 15px 25px;
   font-size: 16px;
-  color: var(--navbar-font-color);
   cursor: pointer;
   position: relative;
   border-bottom: 3px solid transparent;
+}
+
+.navbar-menu li a {
+  color: var(--navbar-font-color);
 }
 
 .navbar-menu li::after {
