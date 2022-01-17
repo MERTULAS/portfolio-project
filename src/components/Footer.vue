@@ -18,6 +18,7 @@
 
 <script>
 export default {
+  name: "Footer",
   data() {
     return {
       footerDate: new Date().getFullYear(),

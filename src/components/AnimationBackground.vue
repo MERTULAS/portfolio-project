@@ -50,6 +50,7 @@ export default {
     pointCount: { type: Number, default: () => 0 },
     size: { type: String, default: () => "full" },
   },
+  name: "AnimationBackground",
   data() {
     return {
       navbarHeight: null,
@@ -63,7 +64,8 @@ export default {
   },
   methods: {
     animationLoop() {
-      this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+      this.context.fillStyle = "rgba(0, 0, 0, .8)";
+      this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
       for (let point of this.pointList) {
         point.update();
       }
@@ -72,10 +74,10 @@ export default {
         for (let point2 of this.pointList) {
           let manhattanDist =
             Math.abs(point1.x - point2.x) + Math.abs(point1.y - point2.y);
-          if (manhattanDist < 300) {
+          if (manhattanDist < 200) {
             this.context.beginPath();
             this.context.strokeStyle = `rgba(0, 155, 0, ${
-              100 / (1000 - manhattanDist)
+              (200 - manhattanDist) / 200
             })`;
             this.context.moveTo(point1.x, point1.y);
             this.context.lineTo(point2.x, point2.y);
@@ -107,7 +109,7 @@ export default {
         new Point(
           Math.floor(Math.random() * (window.innerWidth - 10)),
           Math.floor(Math.random() * (window.innerHeight - 10)),
-          "brown",
+          "red",
           this
         )
       );
