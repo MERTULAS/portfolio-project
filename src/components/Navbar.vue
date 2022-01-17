@@ -31,7 +31,7 @@
 export default {
   data() {
     return {
-      menuItems: ["Ana Sayfa", "Hakkımda"],
+      menuItems: ["Home", "My Project Details", "About Me"],
       selectedMenuIndex: 0,
       clickedHamburger: false,
       projectOwner: process.env.VUE_APP_PROJECT_OWNER,
@@ -40,7 +40,7 @@ export default {
   mounted() {
     window.addEventListener("resize", (event) => {
       this.clickedHamburger =
-        !(event.currentTarget.innerWidth < 765) && this.clickedHamburger;
+        event.currentTarget.innerWidth > 765 && this.clickedHamburger;
     });
   },
 };
@@ -65,6 +65,7 @@ export default {
   font-weight: 500;
   color: var(--navbar-font-color);
   padding: 0px 15px;
+  margin: 0px 5px;
   border-bottom: 1px solid teal;
   border-left: 1px solid teal;
   border-radius: 10px;
@@ -75,6 +76,8 @@ export default {
 .navbar-menu ul {
   width: fit-content;
   display: flex;
+  margin: 0;
+  padding-top: 5px;
 }
 
 .navbar-menu li {
@@ -85,7 +88,7 @@ export default {
   color: var(--navbar-font-color);
   cursor: pointer;
   position: relative;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
 }
 
 .navbar-menu li::after {
@@ -96,7 +99,7 @@ export default {
   transform: translate(-50%, 100%);
   background-color: teal;
   width: 0px;
-  height: 2px;
+  height: 3px;
   transition: 0.5s;
 }
 
@@ -105,7 +108,7 @@ export default {
 }
 
 .active-menu {
-  border-bottom: 2px solid teal !important;
+  border-bottom: 3px solid teal !important;
 }
 
 .hamburger-menu {
@@ -163,9 +166,9 @@ export default {
     align-items: center;
     flex-direction: column;
     position: absolute;
-    top: 62px;
+    top: 61px;
     left: 0;
-    height: calc(100vh - 62px);
+    height: calc(100vh - 61px);
     width: 100vw !important;
     animation: responsiveMenuOpen 0.5s;
     z-index: 99;

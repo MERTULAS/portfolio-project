@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navbar />
+    <GraphicsAnimation :pointCount="100" />
     <Footer />
   </div>
 </template>
@@ -8,17 +9,17 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
+import GraphicsAnimation from "@/components/GraphicsAnimation.vue";
 
 export default {
   components: {
+    GraphicsAnimation,
     Navbar,
     Footer,
   },
   name: "IndexPage",
   data() {
-    return {
-      msg: "Welcome to Your Vue.js App",
-    };
+    return {};
   },
 };
 </script>

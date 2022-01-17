@@ -11,4 +11,7 @@
 :root {
   --navbar-bg-color: rgb(37, 37, 37);
   --navbar-font-color: white;
+
+  --footer-bg-color: rgb(37, 37, 37);
+  --footer-font-color: white;
 }
