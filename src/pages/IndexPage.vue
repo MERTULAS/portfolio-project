@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AnimationBackground :pointCount="80" />
+    <AnimationBackground :pointCount="100" />
     <div class="index-body">
       <h1>Welcome to my website</h1>
     </div>

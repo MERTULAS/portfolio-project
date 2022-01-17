@@ -24,8 +24,8 @@ class Point {
       color,
       componentObject,
     ];
-    this.xDir = Math.random() * 5;
-    this.yDir = Math.random() * 5;
+    this.xDir = Math.random() * 2 - 4;
+    this.yDir = Math.random() * 2 - 4;
   }
 
   draw() {
@@ -109,7 +109,7 @@ export default {
         new Point(
           Math.floor(Math.random() * (window.innerWidth - 10)),
           Math.floor(Math.random() * (window.innerHeight - 10)),
-          "red",
+          "black",
           this
         )
       );
