@@ -1,11 +1,6 @@
 <template>
   <div>
-    <canvas
-      id="anim-canvas"
-      :style="`width: 100%; height: calc(100vh - ${
-        navbarHeight + footerHeight
-      }px`"
-    ></canvas>
+    <canvas id="canvas" :width="size.width" :height="size.height"></canvas>
   </div>
 </template>
 
@@ -31,14 +26,13 @@ class Point {
   draw() {
     this.componentData.context.fillStyle = this.color;
     this.componentData.context.beginPath();
-    this.componentData.context.arc(this.x, this.y, 2, 0, 2 * Math.PI);
+    this.componentData.context.arc(this.x, this.y, 1, 0, 2 * Math.PI);
     this.componentData.context.fill();
   }
 
   update() {
-    this.xDir *= this.x > this.componentData.canvasWidth || this.x < 0 ? -1 : 1;
-    this.yDir *=
-      this.y > this.componentData.canvasHeight || this.y < 0 ? -1 : 1;
+    this.xDir *= this.x > this.componentData.size.width || this.x < 0 ? -1 : 1;
+    this.yDir *= this.y > this.componentData.size.height || this.y < 0 ? -1 : 1;
     this.x += this.xDir;
     this.y += this.yDir;
     this.draw();
@@ -48,24 +42,28 @@ class Point {
 export default {
   props: {
     pointCount: { type: Number, default: () => 0 },
-    size: { type: String, default: () => "full" },
+    size: {
+      type: Object,
+      default: () => {
+        return { width: "100%", height: "500px" };
+      },
+    },
   },
   name: "AnimationBackground",
   data() {
     return {
-      navbarHeight: null,
-      footerHeight: null,
       canvasWidth: window.innerWidth,
       canvasHeight: null,
       canvas: null,
       context: null,
+      cube: null,
       pointList: [],
     };
   },
   methods: {
     animationLoop() {
       this.context.fillStyle = "rgba(0, 0, 0, .8)";
-      this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+      this.context.fillRect(0, 0, this.size.width, this.size.height);
       for (let point of this.pointList) {
         point.update();
       }
@@ -90,26 +88,20 @@ export default {
   },
   mounted() {
     new QuadTree();
-    this.canvas = document.getElementById("anim-canvas");
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.canvas = document.getElementById("canvas");
+    this.canvas.innerWidth = window.innerWidth;
+    this.canvas.innerHeight = window.innerHeight;
 
     this.canvasHeight = this.canvas.getBoundingClientRect().height;
-    this.context = this.canvas.getContext("2d");
 
-    this.navbarHeight = document
-      .querySelector(".navbar-menu")
-      .getBoundingClientRect().height;
-    this.footerHeight = document
-      .querySelector(".footer")
-      .getBoundingClientRect().height;
+    this.context = this.canvas.getContext("2d");
 
     for (let i = 0; i < this.pointCount; i++) {
       this.pointList.push(
         new Point(
-          Math.floor(Math.random() * (window.innerWidth - 10)),
-          Math.floor(Math.random() * (window.innerHeight - 10)),
-          "black",
+          Math.floor(Math.random() * (this.size.width - 10)),
+          Math.floor(Math.random() * (this.size.height - 10)),
+          "green",
           this
         )
       );

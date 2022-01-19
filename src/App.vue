@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
-    <router-view />
+    <router-view style="min-height: 78vh" />
     <Footer />
   </div>
 </template>

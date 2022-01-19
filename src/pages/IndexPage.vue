@@ -1,8 +1,19 @@
 <template>
   <div>
-    <AnimationBackground :pointCount="100" />
+    <AnimationBackground
+      :pointCount="120"
+      :size="{
+        width: pageWidth,
+        height: pageHeight - (navbarHeight + footerHeight + 6),
+      }"
+    />
     <div class="index-body">
       <h1>Welcome to my website</h1>
+      <p>
+        Hello, I am a Software Developer working on various topics. I work on
+        Frontend Web technologies, game algorithms, deep learning and computer
+        graphics.
+      </p>
     </div>
   </div>
 </template>
@@ -19,6 +30,10 @@ export default {
     return {
       animatedTextBackup: null,
       textAnimationTimer: null,
+      navbarHeight: null,
+      footerHeight: null,
+      pageHeight: window.innerHeight,
+      pageWidth: window.innerWidth,
     };
   },
   methods: {
@@ -30,6 +45,13 @@ export default {
     },
   },
   mounted() {
+    this.navbarHeight = document
+      .querySelector(".navbar-menu")
+      .getBoundingClientRect().height;
+    this.footerHeight = document
+      .querySelector(".footer")
+      .getBoundingClientRect().height;
+
     let animatedText;
     [animatedText, this.animatedTextBackup] = Array(2).fill(
       document.querySelector(".index-body h1").innerText
@@ -66,6 +88,14 @@ export default {
 
 .index-body h1 {
   font-size: 45px;
+  min-height: 67.5px;
+  position: relative;
+  width: fit-content;
+}
+
+.index-body p {
+  font-size: 20px;
+  max-width: 450px;
   position: relative;
 }
 
@@ -83,5 +113,7 @@ export default {
   position: absolute;
   left: 5vw;
   top: 15vh;
+  width: 90vw;
+  height: 65vh;
 }
 </style>

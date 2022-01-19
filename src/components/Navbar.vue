@@ -1,29 +1,27 @@
 <template>
-  <div>
-    <div class="navbar-menu">
-      <div class="project-owner">
-        <h1>{{ projectOwner }}</h1>
-      </div>
-      <ul :class="clickedHamburger ? 'navbar-responsive' : ''">
-        <li
-          v-for="(menuItem, index) in menuItems"
-          :key="index"
-          :class="index === selectedMenuIndex ? 'active-menu' : ''"
-          @click="() => (selectedMenuIndex = index)"
-        >
-          <router-link :to="menuItem.path">{{ menuItem.title }}</router-link>
-        </li>
-      </ul>
-      <div
-        class="hamburger-menu"
-        @click="() => (clickedHamburger = !clickedHamburger)"
+  <div class="navbar-menu">
+    <div class="project-owner">
+      <h1>{{ projectOwner }}</h1>
+    </div>
+    <ul :class="clickedHamburger ? 'navbar-responsive' : ''">
+      <li
+        v-for="(menuItem, index) in menuItems"
+        :key="index"
+        :class="$route.path === menuItem.path ? 'active-menu' : ''"
+        @click="routeTo(menuItem.path)"
       >
-        <div
-          v-for="i in Array(3)"
-          :key="i"
-          :class="clickedHamburger ? 'hamburger-clicked' : ''"
-        />
-      </div>
+        {{ menuItem.title }}
+      </li>
+    </ul>
+    <div
+      class="hamburger-menu"
+      @click="() => (clickedHamburger = !clickedHamburger)"
+    >
+      <div
+        v-for="i in Array(3)"
+        :key="i"
+        :class="clickedHamburger ? 'hamburger-clicked' : ''"
+      />
     </div>
   </div>
 </template>
@@ -42,6 +40,23 @@ export default {
       clickedHamburger: false,
       projectOwner: process.env.VUE_APP_PROJECT_OWNER,
     };
+  },
+  watch: {
+    $route: {
+      handler: function () {
+        this.clickedHamburger = false;
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
+  methods: {
+    routeTo(path) {
+      if (this.$route.path !== path) {
+        this.$router.push(path);
+      }
+      return;
+    },
   },
   mounted() {
     window.addEventListener("resize", (event) => {

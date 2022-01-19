@@ -52,10 +52,8 @@ export default {
 
 .footer {
   background-color: var(--footer-bg-color);
-  position: absolute;
   width: 100%;
   padding: 25px;
-  bottom: 0;
   text-align: center;
 }
 
