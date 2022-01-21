@@ -6,7 +6,9 @@
           v-for="(socialMediaObject, index) in socialMediaLinks"
           :key="index"
         >
-          <a-icon :type="socialMediaObject.icon" />
+          <a :href="socialMediaObject.link" target="_blank">
+            <a-icon :type="socialMediaObject.icon" />
+          </a>
         </div>
       </div>
     </div>
@@ -28,12 +30,12 @@ export default {
           link: "https://www.linkedin.com/in/mert-ulas/",
         },
         {
-          icon: "twitter",
-          link: "https://twitter.com/mertulaas",
-        },
-        {
           icon: "github",
           link: "https://github.com/MERTULAS",
+        },
+        {
+          icon: "twitter",
+          link: "https://twitter.com/mertulaas",
         },
         {
           icon: "instagram",
@@ -72,8 +74,8 @@ export default {
   font-size: 28px;
 }
 
-.social-media div:hover .anticon {
+.social-media div:hover * {
   transition: 0.5s;
-  color: teal;
+  color: teal !important;
 }
 </style>

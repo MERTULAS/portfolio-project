@@ -19,8 +19,8 @@ class Point {
       color,
       componentObject,
     ];
-    this.xDir = Math.random() * 2 - 4;
-    this.yDir = Math.random() * 2 - 4;
+    this.xDir = Math.random() * 1 - 2;
+    this.yDir = Math.random() * 1 - 2;
   }
 
   draw() {
@@ -40,20 +40,18 @@ class Point {
 }
 
 export default {
+  name: "AnimationBackground",
   props: {
     pointCount: { type: Number, default: () => 0 },
     size: {
       type: Object,
       default: () => {
-        return { width: "100%", height: "500px" };
+        return { width: 100, height: 500 };
       },
     },
   },
-  name: "AnimationBackground",
   data() {
     return {
-      canvasWidth: window.innerWidth,
-      canvasHeight: null,
       canvas: null,
       context: null,
       cube: null,
@@ -72,10 +70,10 @@ export default {
         for (let point2 of this.pointList) {
           let manhattanDist =
             Math.abs(point1.x - point2.x) + Math.abs(point1.y - point2.y);
-          if (manhattanDist < 200) {
+          if (manhattanDist < 150) {
             this.context.beginPath();
             this.context.strokeStyle = `rgba(0, 155, 0, ${
-              (200 - manhattanDist) / 200
+              (150 - manhattanDist) / 150
             })`;
             this.context.moveTo(point1.x, point1.y);
             this.context.lineTo(point2.x, point2.y);
@@ -89,13 +87,8 @@ export default {
   mounted() {
     new QuadTree();
     this.canvas = document.getElementById("canvas");
-    this.canvas.innerWidth = window.innerWidth;
-    this.canvas.innerHeight = window.innerHeight;
-
-    this.canvasHeight = this.canvas.getBoundingClientRect().height;
-
     this.context = this.canvas.getContext("2d");
-
+    console.log(this.size);
     for (let i = 0; i < this.pointCount; i++) {
       this.pointList.push(
         new Point(
@@ -108,6 +101,9 @@ export default {
     }
 
     this.animationLoop();
+  },
+  destroyed() {
+    cancelAnimationFrame(this.animationLoop);
   },
 };
 </script>

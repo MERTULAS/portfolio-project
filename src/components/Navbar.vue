@@ -76,6 +76,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   z-index: 9990;
+  color: white !important;
 }
 
 .project-owner {

@@ -6,7 +6,6 @@
   list-style-type: none;
   box-sizing: border-box;
   font-family: Roboto, sans-serif;
-  color: white;
 }
 
 body {
@@ -20,4 +19,8 @@ body {
 
   --footer-bg-color: black;
   --footer-font-color: white;
+}
+
+.page * {
+  color: white !important;
 }

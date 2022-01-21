@@ -1,78 +1,88 @@
 <template>
-  <div>
-    <AnimationBackground
-      :pointCount="120"
-      :size="{
-        width: pageWidth,
-        height: pageHeight - (navbarHeight + footerHeight + 6),
-      }"
-    />
-    <div class="index-body">
-      <h1>Welcome to my website</h1>
-      <p>
-        Hello, I am a Software Developer working on various topics. I work on
-        Frontend Web technologies, game algorithms, deep learning and computer
-        graphics.
-      </p>
+  <div class="page">
+    <Spinner :spinning="isSpinning" />
+    <div class="page-body" v-if="!isSpinning">
+      <AnimationBackground
+        class="animated-bg-block"
+        :pointCount="120"
+        :size="{
+          width: (pageWidth / 10 + pageWidth) >> 1,
+          height: pageHeight - (navbarHeight + footerHeight),
+        }"
+      />
+      <div class="index-body">
+        <h1>{{ animatedText }}</h1>
+        <p>
+          Hello, I am a Software Developer working on various topics. I work on
+          Frontend Web Technologies, Game Algorithms, Deep Learning and Computer
+          Graphics.
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import AnimationBackground from "@/components/AnimationBackground.vue";
+import Spinner from "@/components/Spinner.vue";
 
 export default {
   name: "IndexPage",
   components: {
     AnimationBackground,
+    Spinner,
   },
   data() {
     return {
-      animatedTextBackup: null,
+      animatedText: "Welcome to my website",
       textAnimationTimer: null,
       navbarHeight: null,
       footerHeight: null,
       pageHeight: window.innerHeight,
       pageWidth: window.innerWidth,
+      isSpinning: true,
     };
   },
   methods: {
-    deleteCharFromLast(text) {
-      return text.slice(0, -1);
+    deleteCharFromLast() {
+      return this.animatedText.slice(0, -1);
     },
-    appendCharToLast(text) {
-      return text + this.animatedTextBackup[text.length];
+    appendCharToLast(textBackup) {
+      return this.animatedText + textBackup[this.animatedText.length];
+    },
+    textAnimation() {
+      let textWritingStatus = false;
+      let i = this.animatedText.length;
+      let iIncrementer = -1;
+      let animatedTextBackup = this.animatedText;
+      this.textAnimationTimer = setInterval(() => {
+        if (i === 0) {
+          textWritingStatus = true;
+          iIncrementer = 1;
+        } else if (i === animatedTextBackup.length) {
+          textWritingStatus = false;
+          iIncrementer = -1;
+        }
+        this.animatedText = textWritingStatus
+          ? this.appendCharToLast(animatedTextBackup)
+          : this.deleteCharFromLast();
+        i += iIncrementer;
+      }, 100);
+    },
+    pageInitialize() {
+      this.navbarHeight = document
+        .querySelector(".navbar-menu")
+        .getBoundingClientRect().height;
+      this.footerHeight = document
+        .querySelector(".footer")
+        .getBoundingClientRect().height;
+
+      this.isSpinning = false;
+      this.textAnimation();
     },
   },
   mounted() {
-    this.navbarHeight = document
-      .querySelector(".navbar-menu")
-      .getBoundingClientRect().height;
-    this.footerHeight = document
-      .querySelector(".footer")
-      .getBoundingClientRect().height;
-
-    let animatedText;
-    [animatedText, this.animatedTextBackup] = Array(2).fill(
-      document.querySelector(".index-body h1").innerText
-    );
-    let textWritingStatus = false;
-    let i = animatedText.length;
-    let iIncrementer = -1;
-    this.textAnimationTimer = setInterval(() => {
-      document.querySelector(".index-body h1").innerText = animatedText;
-      if (i === 0) {
-        textWritingStatus = true;
-        iIncrementer = 1;
-      } else if (i === this.animatedTextBackup.length) {
-        textWritingStatus = false;
-        iIncrementer = -1;
-      }
-      animatedText = textWritingStatus
-        ? this.appendCharToLast(animatedText)
-        : this.deleteCharFromLast(animatedText);
-      i += iIncrementer;
-    }, 100);
+    this.pageInitialize();
   },
   destroyed() {
     clearInterval(this.textAnimationTimer);
@@ -84,6 +94,10 @@ export default {
 <style scoped>
 .index-body * {
   color: white;
+}
+
+.animated-bg-block {
+  float: right;
 }
 
 .index-body h1 {
