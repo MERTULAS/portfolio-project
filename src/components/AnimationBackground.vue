@@ -88,7 +88,6 @@ export default {
     new QuadTree();
     this.canvas = document.getElementById("canvas");
     this.context = this.canvas.getContext("2d");
-    console.log(this.size);
     for (let i = 0; i < this.pointCount; i++) {
       this.pointList.push(
         new Point(
