@@ -1,13 +1,11 @@
 <template>
   <div class="page">
-    <center><h1>ProjectDetailPage</h1></center>
-    <div class="project-list">
+    <Spinner :spinning="isSpinning" />
+    <div v-if="!isSpinning" class="project-list">
       <project-card
-        v-for="project in projectList"
-        :key="project.title"
-        :title="project.title"
-        :link="project.link"
-        :image="{}"
+        v-for="(project, index) in projectList"
+        :key="index"
+        :project="project"
       />
     </div>
   </div>
@@ -15,30 +13,53 @@
 
 <script>
 import ProjectCard from "../components/ProjectCard.vue";
+import Spinner from "../components/Spinner.vue";
+import GetProjectsOnGitHub from "../service/GetProjectsOnGitHub";
+
 export default {
   name: "ProjectDetailPage",
   components: {
     ProjectCard,
+    Spinner,
   },
   data() {
     return {
-      projectList: Array(16)
-        .fill({
-          title: "Project 1",
-          link: "link1",
-          image: new Image(""),
-        })
-        .map((project, index) => {
-          return { ...project, title: "Project " + (index + 1) };
-        }),
+      status_code: 0,
+      projectList: [],
+      isSpinning: true,
     };
+  },
+  watch: {
+    projectList(val) {
+      if (val) {
+        this.isSpinning = false;
+      }
+    },
+  },
+  methods: {
+    loadProjects() {
+      GetProjectsOnGitHub.getProjects().then((result) => {
+        this.status_code = result.status;
+        if (this.status_code === 200) {
+          this.projectList = result.data.map((project) => {
+            return {
+              name: project.name,
+              link: project.html_url,
+              clone: project.clone_url,
+            };
+          });
+        }
+      });
+    },
+  },
+  mounted() {
+    this.loadProjects();
   },
 };
 </script>
 
 <style>
 .project-list {
-  background-color: red;
   padding: 25px 20vw;
   display: flex;
   justify-content: space-between;
