@@ -26,7 +26,7 @@ class Point {
   draw() {
     this.componentData.context.fillStyle = this.color;
     this.componentData.context.beginPath();
-    this.componentData.context.arc(this.x, this.y, 1, 0, 2 * Math.PI);
+    this.componentData.context.arc(this.x, this.y, 2, 0, 2 * Math.PI);
     this.componentData.context.fill();
   }
 
@@ -54,7 +54,6 @@ export default {
     return {
       canvas: null,
       context: null,
-      cube: null,
       pointList: [],
     };
   },

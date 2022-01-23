@@ -33,7 +33,7 @@ export default {
     return {
       menuItems: [
         { title: "Home", path: "/" },
-        { title: "My Project Details", path: "/projects" },
+        { title: "My Projects", path: "/projects" },
         { title: "About Me", path: "/about" },
       ],
       selectedMenuIndex: 0,

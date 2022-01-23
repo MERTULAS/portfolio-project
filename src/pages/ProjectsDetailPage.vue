@@ -41,12 +41,15 @@ export default {
       GetProjectsOnGitHub.getProjects().then((result) => {
         this.status_code = result.status;
         if (this.status_code === 200) {
-          this.projectList = result.data.map((project) => {
-            return {
-              name: project.name,
-              link: project.html_url,
-              clone: project.clone_url,
-            };
+          this.projectList = [];
+          result.data.forEach((project) => {
+            if (!project.fork) {
+              this.projectList.push({
+                name: project.name,
+                link: project.html_url,
+                clone: project.clone_url,
+              });
+            }
           });
         }
       });
@@ -62,7 +65,7 @@ export default {
 .project-list {
   padding: 25px 20vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
 }
 </style>

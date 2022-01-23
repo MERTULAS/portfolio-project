@@ -53,15 +53,21 @@ export default {
 <style>
 .project-card-body {
   background-image: linear-gradient(
-    45deg,
-    rgba(33, 33, 33, 0.5),
-    rgba(33, 0, 0, 0.8)
+    135deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(33, 33, 33, 0.8),
+    rgba(0, 0, 0, 0.5)
   );
   margin: 15px;
   padding: 10px;
-  width: 25vw;
-  height: 25vh;
   border-radius: 5px;
+  box-shadow: 0 0 15px 5px rgba(33, 33, 33, 0.5);
+  flex-basis: 46%;
+  max-width: 46%;
+  min-width: 288px;
+  height: 30vh;
+
+  border: 1px solid black;
 }
 
 .project-card-body h3 {
@@ -76,10 +82,11 @@ export default {
 }
 
 .header-block .anticon {
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .header-block .anticon:hover * {
+  transition: 0.5s !important;
   color: teal !important;
 }
 
@@ -87,10 +94,11 @@ export default {
   position: absolute;
   right: 0;
   transform: translateX(40%);
-  background-color: #333;
+  background-color: rgb(167, 167, 167);
   padding: 8px;
   border-radius: 5px;
   animation: openCopyInfo 2.5s;
+  box-shadow: 0px 0px 5px 5px black;
 }
 
 .copy-info::after {
@@ -99,23 +107,18 @@ export default {
   top: 0;
   left: 50%;
   transform: translate(-50%, -50%) rotate(45deg);
-  border-left: 10px solid #333;
-  border-top: 10px solid #333;
+  border-left: 10px solid rgb(167, 167, 167);
+  border-top: 10px solid rgb(167, 167, 167);
 }
 
 @keyframes openCopyInfo {
   0% {
-    top: 0%;
-    opacity: 0.5;
-  }
-
-  50% {
-    top: 80%;
+    top: 150%;
     opacity: 1;
   }
 
   100% {
-    top: 0%;
+    top: 80%;
     opacity: 0.5;
   }
 }
