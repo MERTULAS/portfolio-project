@@ -16,8 +16,17 @@
           pageHeight - (navbarHeight + footerHeight)
         }px`"
       >
-        <div class="init-progress-bar" v-if="isProgress">
-          <div class="progress">{{ progress }} %</div>
+        <div
+          class="init-progress-bar"
+          :style="`width: ${progressBarWidth}px`"
+          v-if="isProgress"
+        >
+          <div
+            class="progress"
+            :style="`width: ${progress * (progressBarWidth / 100)}px`"
+          >
+            {{ progress }} %
+          </div>
         </div>
         <router-view v-else />
       </div>
@@ -47,7 +56,17 @@ export default {
       isLoadPage: false,
       isProgress: true,
       progress: 0,
+      progressBarWidth: 500,
+      progressInterval: null,
     };
+  },
+  watch: {
+    progress(val) {
+      if (val >= 100) {
+        clearInterval(this.progressInterval);
+        this.isProgress = false;
+      }
+    },
   },
   methods: {
     pageInitialize() {
@@ -63,14 +82,15 @@ export default {
       console.log(this.navbarHeight, this.footerHeight);
       this.isLoadPage = true;
     },
+    progressBar() {
+      this.progress += Math.floor(Math.random() * 10);
+    },
   },
   mounted() {
     this.pageInitialize();
     document.getElementsByTagName("title")[0].innerHTML =
       process.env.VUE_APP_PROJECT_OWNER + " - Portfolio";
-    setTimeout(() => {
-      this.isProgress = false;
-    }, 4000);
+    this.progressInterval = setInterval(this.progressBar, 100);
   },
 };
 </script>
@@ -82,7 +102,6 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   height: 80px;
-  width: 500px;
   background: transparent;
   border: 3px solid green;
   color: white;
@@ -97,15 +116,15 @@ export default {
   align-items: center;
   justify-content: flex-end;
   font-size: 30px;
-  animation: progressInit 4s forwards;
+  /* animation: progressInit 4s forwards; */
 }
 
-@keyframes progressInit {
+/* @keyframes progressInit {
   0% {
     width: 50px;
   }
   100% {
     width: 100%;
   }
-}
+} */
 </style>
