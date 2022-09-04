@@ -34,6 +34,7 @@ export default {
       menuItems: [
         { title: "Home", path: "/" },
         { title: "My Projects", path: "/projects" },
+        { title: "Fun Page", path: "/fun" },
         { title: "About Me", path: "/about" },
       ],
       selectedMenuIndex: 0,

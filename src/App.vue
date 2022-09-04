@@ -23,12 +23,13 @@
         >
           <div
             class="progress"
-            :style="`width: ${progress * (progressBarWidth / 100)}px`"
+            :style="`width: ${progress * (progressBarWidth / 100) - 30}px`"
           >
             {{ progress }} %
           </div>
         </div>
         <router-view v-else />
+        <SelectorArcher />
       </div>
     </AnimationBackground>
     <Footer />
@@ -39,6 +40,7 @@
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 import AnimationBackground from "@/components/AnimationBackground.vue";
+import SelectorArcher from "@/components/SelectorArcher.vue";
 
 export default {
   name: "App",
@@ -46,6 +48,7 @@ export default {
     Navbar,
     Footer,
     AnimationBackground,
+    SelectorArcher,
   },
   data() {
     return {
@@ -55,8 +58,8 @@ export default {
       pageWidth: null,
       isLoadPage: false,
       isProgress: true,
-      progress: 0,
-      progressBarWidth: 500,
+      progress: 20,
+      progressBarWidth: 800,
       progressInterval: null,
     };
   },
@@ -72,14 +75,12 @@ export default {
     pageInitialize() {
       this.pageWidth = window.innerWidth;
       this.pageHeight = window.innerHeight;
-      console.log(this.pageHeight, this.pageWidth);
       this.navbarHeight = document
         .querySelector(".navbar-menu")
         .getBoundingClientRect().height;
       this.footerHeight = document
         .querySelector(".footer")
         .getBoundingClientRect().height;
-      console.log(this.navbarHeight, this.footerHeight);
       this.isLoadPage = true;
     },
     progressBar() {
@@ -90,7 +91,7 @@ export default {
     this.pageInitialize();
     document.getElementsByTagName("title")[0].innerHTML =
       process.env.VUE_APP_PROJECT_OWNER + " - Portfolio";
-    this.progressInterval = setInterval(this.progressBar, 100);
+    this.progressInterval = setInterval(this.progressBar, 150);
   },
 };
 </script>
@@ -98,6 +99,7 @@ export default {
 <style>
 .init-progress-bar {
   position: absolute;
+  padding: 8px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

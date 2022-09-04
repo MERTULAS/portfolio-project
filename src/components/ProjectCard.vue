@@ -1,7 +1,19 @@
 <template>
   <div class="project-card-body">
     <div class="header-block">
-      <a :href="project.link" target="_blank">{{ project.name }}</a>
+      <a
+        :href="project.link"
+        target="_blank"
+        style="text-transform: capitalize"
+        >{{
+          ["-", "_"]
+            .reduce(
+              (parsedString, char) => parsedString.join(" ").split(char),
+              [project.name]
+            )
+            .join(" ")
+        }}</a
+      >
       <a-icon type="cloud-download" @click="copyToClipboard(project.clone)" />
       <div v-if="isCopyInfoCardVisible" class="copy-info">
         Paste on Terminal
@@ -68,6 +80,15 @@ export default {
   height: 30vh;
 
   border: 1px solid black;
+}
+
+.project-card-body a {
+  font-size: 18px;
+}
+
+.project-card-body a:hover {
+  transition: 0.5s !important;
+  color: teal !important;
 }
 
 .project-card-body h3 {
