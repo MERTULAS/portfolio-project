@@ -1,6 +1,7 @@
 <template>
   <div>
     <canvas id="canvas" :width="size.width" :height="size.height"></canvas>
+    <slot />
   </div>
 </template>
 
@@ -109,5 +110,11 @@ export default {
 <style scoped>
 #anim-canvas {
   background: black;
+}
+
+#canvas {
+  position: absolute;
+  left: 0;
+  z-index: -1;
 }
 </style>

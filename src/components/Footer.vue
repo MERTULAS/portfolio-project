@@ -41,6 +41,10 @@ export default {
           icon: "instagram",
           link: "https://www.instagram.com/mertulas1/?hl=tr",
         },
+        {
+          icon: "youtube",
+          link: "https://www.youtube.com/channel/UCIXpGQz894CXt0x1dSKVdxA",
+        },
       ],
     };
   },
