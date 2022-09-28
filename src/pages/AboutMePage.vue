@@ -1,11 +1,20 @@
 <template>
   <div class="page">
-    <center><h1>AboutMePage</h1></center>
+    <profile-card />
   </div>
 </template>
 
 <script>
-export default {};
+import ProfileCard from "../components/ProfileCard.vue";
+export default {
+  name: "AboutMePage",
+  components: {
+    ProfileCard,
+  },
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style></style>

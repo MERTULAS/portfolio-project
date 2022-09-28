@@ -1,0 +1,26 @@
+{
+    "profile_picture": "./data/profile.JPG",
+    "name": "Mert ULAS",
+    "job_experience": [
+        {
+            "company": "Huawei Technologies",
+            "company_logo": "https://logosvector.net/wp-content/uploads/2011/06/huawei-logo-vector-01.png",
+            "start_time": "03-05-2021",
+            "end_time": "",
+            "experiences": [
+                {
+                    "job_title": "Software Engineer",
+                    "job_description": "Full Stack Developer",
+                    "start_time": "01-09-2022",
+                    "end_time": ""
+                },
+                {
+                    "job_title": "Assistant Software Engineer",
+                    "job_description": "I'm in the team that develops a tool for the follow-up of CI/CD processes of the core team at the headquarters. I work as a Full Stack Developer. I'm working with JavaScript, Vue, CSS, Python.",
+                    "start_time": "03-05-2021",
+                    "end_time": "01-09-2022"
+                }
+            ]
+        }
+    ]
+}

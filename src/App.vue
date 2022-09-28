@@ -29,7 +29,7 @@
           </div>
         </div>
         <router-view v-else />
-        <SelectorArcher />
+        <!-- <SelectorArcher /> -->
       </div>
     </AnimationBackground>
     <Footer />
@@ -40,7 +40,7 @@
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 import AnimationBackground from "@/components/AnimationBackground.vue";
-import SelectorArcher from "@/components/SelectorArcher.vue";
+// import SelectorArcher from "@/components/SelectorArcher.vue";
 
 export default {
   name: "App",
@@ -48,7 +48,7 @@ export default {
     Navbar,
     Footer,
     AnimationBackground,
-    SelectorArcher,
+    // SelectorArcher,
   },
   data() {
     return {
