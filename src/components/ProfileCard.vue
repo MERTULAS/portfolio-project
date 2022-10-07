@@ -6,8 +6,7 @@
         <div class="profile-picture">
           <img
             :src="userProfileData.profile_picture"
-            width="320"
-            height="240"
+            class="profile-picture-img"
           />
         </div>
         <p>{{ userProfileData.name }}</p>
@@ -160,6 +159,62 @@ export default {
   border-radius: 50%;
 }
 
+.profile-picture-img {
+  width: 320px;
+  height: 240px;
+}
+
+@media only screen and (max-width: 1320px) {
+  .profile-picture-img {
+    width: 240px;
+    height: 180px;
+  }
+}
+
+@media only screen and (max-width: 1150px) {
+  .experience-time {
+    display: block;
+    padding-left: 10px;
+    padding-bottom: 5px;
+  }
+
+  .title-experience-time {
+    display: block;
+    padding-left: 0;
+    position: relative;
+  }
+
+  .company-experiences:not(.company-experiences:last-child) .title-experience-time::before {
+    content: "";
+    left: 0;
+    top: 50%;
+    transform: translate(-300%, -50%);
+    background-color: green;
+    position: absolute;
+    width: 5px;
+    height: 110%;
+  }
+}
+
+@media only screen and (max-width: 860px) {
+  .profile-card {
+    flex-direction: column;
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    height: fit-content;
+  }
+
+  .experiences {
+    padding: 0px !important;
+  }
+}
+
 .job-experiences > p {
   font-size: 30px;
 }
@@ -215,7 +270,9 @@ export default {
   position: relative;
 }
 
-.job-info-block::before {
+.company-experiences:not(.company-experiences:last-child)
+  .job-info-block
+  ::before {
   content: "";
   position: absolute;
   width: 5px;
@@ -240,6 +297,7 @@ export default {
 
 .job-description {
   font-size: 14px;
-  padding: 5px;
+  padding: 15px;
+  margin: 0;
 }
 </style>

@@ -192,9 +192,9 @@ export default {
     align-items: center;
     flex-direction: column;
     position: absolute;
-    top: 61px;
+    top: 60px;
     left: 0;
-    height: calc(100vh - 61px);
+    height: calc(100vh - 60px);
     width: 100vw !important;
     animation: responsiveMenuOpen 0.5s;
     z-index: 99;

@@ -131,4 +131,19 @@ export default {
     rgba(0, 0, 0, 0.5)
   );
 }
+
+@media screen and (max-width: 765px) {
+  .index-body h1 {
+    font-size: 28px;
+    min-height: 30px;
+  }
+
+  .index-body h1::after {
+    content: "";
+  }
+
+  .index-body p {
+    font-size: 16px;
+  }
+}
 </style>

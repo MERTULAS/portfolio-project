@@ -74,7 +74,7 @@ export default {
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 15px 5px rgba(33, 33, 33, 0.5);
-  flex-basis: 46%;
+  flex-basis: 20%;
   max-width: 46%;
   min-width: 288px;
   height: 30vh;

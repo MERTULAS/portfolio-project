@@ -63,7 +63,7 @@ export default {
 
 <style>
 .project-list {
-  padding: 25px 20vw;
+  padding: 25px 5vw;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

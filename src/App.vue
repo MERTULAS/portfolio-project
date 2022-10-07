@@ -5,7 +5,7 @@
     <AnimationBackground
       v-if="isLoadPage"
       class="animated-bg-block"
-      :pointCount="120"
+      :pointCount="pointCount"
       :size="{
         width: pageWidth,
         height: pageHeight - (navbarHeight + footerHeight),
@@ -18,14 +18,14 @@
       >
         <div
           class="init-progress-bar"
-          :style="`width: ${progressBarWidth}px`"
+          :style="`width: ${progressBarWidth}vw`"
           v-if="isProgress"
         >
           <div
             class="progress"
-            :style="`width: ${progress * (progressBarWidth / 100) - 30}px`"
+            :style="`width: ${progress * (progressBarWidth / 100)}vw; max-width: calc(${progressBarWidth}vw - 18px)`"
           >
-            {{ progress }} %
+          <p>{{ progress }} %</p>
           </div>
         </div>
         <router-view v-else />
@@ -59,7 +59,8 @@ export default {
       isLoadPage: false,
       isProgress: true,
       progress: 20,
-      progressBarWidth: 800,
+      progressBarWidth: 60,
+      pointCount: 120,
       progressInterval: null,
     };
   },
@@ -86,12 +87,27 @@ export default {
     progressBar() {
       this.progress += Math.floor(Math.random() * 10);
     },
+    detectMob() {
+      const toMatch = [
+        /Android/i,
+        /webOS/i,
+        /iPhone/i,
+        /iPad/i,
+        /iPod/i,
+        /BlackBerry/i,
+        /Windows Phone/i,
+      ];
+      return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+      });
+    },
   },
   mounted() {
     this.pageInitialize();
     document.getElementsByTagName("title")[0].innerHTML =
       process.env.VUE_APP_PROJECT_OWNER + " - Portfolio";
     this.progressInterval = setInterval(this.progressBar, 150);
+    // this.pointCount = this.detectMob() ? 30 : 120;
   },
 };
 </script>
@@ -114,19 +130,15 @@ export default {
   border-radius: 5px;
   background: green;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  font-size: 30px;
-  /* animation: progressInit 4s forwards; */
 }
 
-/* @keyframes progressInit {
-  0% {
-    width: 50px;
-  }
-  100% {
-    width: 100%;
-  }
-} */
+.progress p {
+  font-size: 30px;
+  font-style: italic;
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translate(-6%, -50%);
+}
+
 </style>

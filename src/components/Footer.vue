@@ -39,7 +39,7 @@ export default {
         },
         {
           icon: "instagram",
-          link: "https://www.instagram.com/mertulas1/?hl=tr",
+          link: "https://www.instagram.com/themertulas/?hl=tr",
         },
         {
           icon: "youtube",
