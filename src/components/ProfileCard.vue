@@ -184,7 +184,8 @@ export default {
     position: relative;
   }
 
-  .company-experiences:not(.company-experiences:last-child) .title-experience-time::before {
+  .company-experiences:not(.company-experiences:last-child)
+    .title-experience-time::before {
     content: "";
     left: 0;
     top: 50%;

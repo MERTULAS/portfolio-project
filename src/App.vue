@@ -23,9 +23,11 @@
         >
           <div
             class="progress"
-            :style="`width: ${progress * (progressBarWidth / 100)}vw; max-width: calc(${progressBarWidth}vw - 18px)`"
+            :style="`width: ${
+              progress * (progressBarWidth / 100)
+            }vw; max-width: calc(${progressBarWidth}vw - 18px)`"
           >
-          <p>{{ progress }} %</p>
+            <p>{{ progress }} %</p>
           </div>
         </div>
         <router-view v-else />
@@ -140,5 +142,4 @@ export default {
   top: 50%;
   transform: translate(-6%, -50%);
 }
-
 </style>
