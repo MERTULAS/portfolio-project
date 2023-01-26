@@ -90,6 +90,7 @@ export default {
   min-height: 67.5px;
   position: relative;
   width: fit-content;
+  font-style: italic;
 }
 
 .index-body p {

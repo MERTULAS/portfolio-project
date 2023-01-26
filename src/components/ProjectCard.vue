@@ -14,7 +14,13 @@
             .join(" ")
         }}</a
       >
-      <a-icon type="cloud-download" @click="copyToClipboard(project.clone)" />
+      <div class="project-download-icons">
+        <a-icon
+          type="cloud-download"
+          @click="downloadAsZipFile(project.zip_url, project.name)"
+        />
+        <a-icon type="desktop" @click="copyToClipboard(project.clone)" />
+      </div>
       <div v-if="isCopyInfoCardVisible" class="copy-info">
         Paste on Terminal
       </div>
@@ -34,6 +40,13 @@ export default {
     };
   },
   methods: {
+    downloadAsZipFile(url, filename) {
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      link.click();
+      link.remove();
+    },
     copyToClipboard(text) {
       text = "git clone " + text;
       // navigator clipboard api needs a secure context (https)
@@ -73,12 +86,10 @@ export default {
   margin: 15px;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 0 15px 5px rgba(33, 33, 33, 0.5);
   flex-basis: 20%;
-  max-width: 46%;
+  max-width: 47%;
   min-width: 288px;
   height: 30vh;
-
   border: 1px solid black;
 }
 
@@ -109,6 +120,15 @@ export default {
 .header-block .anticon:hover * {
   transition: 0.5s !important;
   color: teal !important;
+}
+
+.project-download-icons {
+  display: flex;
+  align-items: center;
+}
+
+.project-download-icons * {
+  margin: 0 4px;
 }
 
 .copy-info {

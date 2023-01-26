@@ -3,7 +3,7 @@
     <Spinner :spinning="isSpinning" />
     <div v-if="!isSpinning" class="project-list">
       <project-card
-        v-for="(project, index) in projectList"
+        v-for="(project, index) in projectListResult"
         :key="index"
         :project="project"
       />
@@ -14,7 +14,7 @@
 <script>
 import ProjectCard from "../components/ProjectCard.vue";
 import Spinner from "../components/Spinner.vue";
-import GetProjectsOnGitHub from "../service/GetProjectsOnGitHub";
+import { mapState } from "vuex";
 
 export default {
   name: "ProjectDetailPage",
@@ -25,38 +25,33 @@ export default {
   data() {
     return {
       status_code: 0,
-      projectList: [],
-      isSpinning: true,
+      projectListResult: [],
+      isSpinning: false,
     };
+  },
+  computed: {
+    ...mapState({
+      projectList: (state) => state.GitHubUserDataModule.gitHubUserData,
+    }),
   },
   watch: {
     projectList(val) {
       if (val) {
         this.isSpinning = false;
+        this.projectListResult = val.result;
       }
     },
   },
   methods: {
     loadProjects() {
-      GetProjectsOnGitHub.getProjects().then((result) => {
-        this.status_code = result.status;
-        if (this.status_code === 200) {
-          this.projectList = [];
-          result.data.forEach((project) => {
-            if (!project.fork) {
-              this.projectList.push({
-                name: project.name,
-                link: project.html_url,
-                clone: project.clone_url,
-              });
-            }
-          });
-        }
-      });
+      this.isSpinning = true;
+      this.$store.dispatch("getGitHubAPIData");
     },
   },
   mounted() {
-    this.loadProjects();
+    if (this.projectList.status_code === 200)
+      this.projectListResult = this.projectList.result;
+    else this.loadProjects();
   },
 };
 </script>

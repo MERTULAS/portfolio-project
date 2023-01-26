@@ -56,7 +56,21 @@ export default {
       canvas: null,
       context: null,
       pointList: [],
+      isEnteredFunPage: false,
+      mouseMoveListener: null,
     };
+  },
+  watch: {
+    $route(val) {
+      this.isEnteredFunPage = val.name === "fun";
+    },
+    isEnteredFunPage(val) {
+      if (val) {
+        window.addEventListener("mousemove", this.mouseMove);
+      } else {
+        window.removeEventListener("mousemove", this.mouseMove);
+      }
+    },
   },
   methods: {
     animationLoop() {
@@ -83,9 +97,14 @@ export default {
       }
       requestAnimationFrame(this.animationLoop);
     },
+    mouseMove() {
+      // points will escape from the mouse and will develop various game effects...;
+    },
   },
   mounted() {
     new QuadTree();
+    this.isEnteredFunPage = this.$route.name === "fun";
+    this.mouseMoveListener = this.mouseMove;
     this.canvas = document.getElementById("canvas");
     this.context = this.canvas.getContext("2d");
     for (let i = 0; i < this.pointCount; i++) {
