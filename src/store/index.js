@@ -10,6 +10,6 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
-    GitHubUserDataModule: GitHubUserDataStore
+    GitHubUserDataModule: GitHubUserDataStore,
   },
 });

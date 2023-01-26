@@ -31,7 +31,7 @@ const GitHubUserDataStore = {
                   name: project.name,
                   link: project.html_url,
                   clone: project.clone_url,
-                  zip_url: project.url + "/zipball/master"
+                  zip_url: project.url + "/zipball/master",
                 });
               }
             });
