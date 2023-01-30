@@ -37,8 +37,8 @@ export default {
   watch: {
     projectList(val) {
       if (val) {
-        this.isSpinning = false;
         this.projectListResult = val.result;
+        this.isSpinning = false;
       }
     },
   },

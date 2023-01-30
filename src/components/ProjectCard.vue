@@ -25,6 +25,19 @@
         Paste on Terminal
       </div>
     </div>
+    <div class="project-languages">
+      <div
+        v-for="language in Object.keys(project.languages)"
+        class="project-language"
+        :key="language"
+      >
+        <div
+          class="language-marker"
+          :style="`background-color: ${languageColors[language]}`"
+        />
+        <p>{{ language }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,6 +50,17 @@ export default {
   data() {
     return {
       isCopyInfoCardVisible: false,
+      languageColors: {
+        Python: "#3572a5",
+        JavaScript: "#f1e05a",
+        C: "#555555",
+        "C++": "#f34b7d",
+        CSS: "#563d7c",
+        Vue: "#41b883",
+        "Jupyter Notebook": "#da5b0b",
+        HTML: "#e34c26",
+        Shell: "#89e051",
+      },
     };
   },
   methods: {
@@ -111,6 +135,8 @@ export default {
   display: flex;
   justify-content: space-between;
   position: relative;
+  padding-bottom: 5px;
+  border-bottom: 2px solid green;
 }
 
 .header-block .anticon {
@@ -162,5 +188,21 @@ export default {
     top: 80%;
     opacity: 0.5;
   }
+}
+
+.project-language {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.language-marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.project-language p {
+  margin: 0 0 0 5px;
 }
 </style>

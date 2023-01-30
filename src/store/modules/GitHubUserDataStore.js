@@ -27,12 +27,25 @@ const GitHubUserDataStore = {
             res = [];
             result.data.forEach((project) => {
               if (!project.fork) {
-                res.push({
-                  name: project.name,
-                  link: project.html_url,
-                  clone: project.clone_url,
-                  zip_url: project.url + "/zipball/master",
-                });
+                GetProjectsOnGitHub.getProjectLanguages(project.name)
+                  .then((projectLanguages) => {
+                    res.push({
+                      name: project.name,
+                      link: project.html_url,
+                      clone: project.clone_url,
+                      zip_url: project.url + "/zipball/master",
+                      languages: projectLanguages.data,
+                    });
+                  })
+                  .catch(() => {
+                    res.push({
+                      name: project.name,
+                      link: project.html_url,
+                      clone: project.clone_url,
+                      zip_url: project.url + "/zipball/master",
+                      languages: {},
+                    });
+                  });
               }
             });
           }
@@ -41,6 +54,7 @@ const GitHubUserDataStore = {
             status_code: result.status,
           };
           commit("updateGitHubUserData", apiData);
+          return res;
         })
         .catch((err) => {
           if (err.response.status !== undefined) {
