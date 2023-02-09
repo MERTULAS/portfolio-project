@@ -1,25 +1,36 @@
 <template>
   <div class="page">
     <Spinner :spinning="isSpinning" />
-    <div v-if="!isSpinning" class="project-list">
-      <project-card
-        v-for="(project, index) in projectListResult"
-        :key="index"
-        :project="project"
-      />
-    </div>
+    <Tabs v-if="!isSpinning">
+      <Tab :tabName="'Project List'" icon="home" lazyLoading active>
+        <div class="project-list">
+          <project-card
+            v-for="(project, index) in projectListResult"
+            :key="index"
+            :project="project"
+          />
+        </div>
+      </Tab>
+      <Tab :tabName="'Analysis'" icon="rocket" lazyLoading>
+        <div class="project-list">PROJECTS ANALYSIS</div>
+      </Tab>
+    </Tabs>
   </div>
 </template>
 
 <script>
 import ProjectCard from "../components/ProjectCard.vue";
 import Spinner from "../components/Spinner.vue";
+import Tab from "../components/Tab.vue";
+import Tabs from "../components/Tabs.vue";
 import { mapState } from "vuex";
 
 export default {
   name: "ProjectDetailPage",
   components: {
     ProjectCard,
+    Tabs,
+    Tab,
     Spinner,
   },
   data() {
@@ -58,7 +69,6 @@ export default {
 
 <style>
 .project-list {
-  padding: 25px 5vw;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

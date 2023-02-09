@@ -25,7 +25,7 @@ class CannonBall {
 
   update() {
     this.draw();
-    this.componentData.fillStyle = "black";
+    this.componentData.fillStyle = "black"
     this.componentData.fillRect(
       0,
       0,

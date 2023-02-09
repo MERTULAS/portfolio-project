@@ -10,7 +10,10 @@
         :class="$route.path === menuItem.path ? 'active-menu' : ''"
         @click="routeTo(menuItem.path)"
       >
-        {{ menuItem.title }}
+        <a-icon :type="menuItem.icon" class="menu-icon" />
+        <p style="margin: 0">
+          {{ menuItem.title }}
+        </p>
       </li>
     </ul>
     <div
@@ -32,10 +35,10 @@ export default {
   data() {
     return {
       menuItems: [
-        { title: "Home", path: "/" },
-        { title: "My Projects", path: "/projects" },
-        { title: "Fun Page", path: "/fun" },
-        { title: "About Me", path: "/about" },
+        { title: "Home", path: "/", icon: "home" },
+        { title: "My Projects", path: "/projects", icon: "code" },
+        { title: "Fun Page", path: "/fun", icon: "rocket" },
+        { title: "About Me", path: "/about", icon: "user" },
       ],
       selectedMenuIndex: 0,
       clickedHamburger: false,
@@ -111,6 +114,13 @@ export default {
   cursor: pointer;
   position: relative;
   border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  margin-right: 5px;
+  font-size: 25px;
 }
 
 .navbar-menu li a {

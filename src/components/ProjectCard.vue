@@ -35,7 +35,10 @@
           class="language-marker"
           :style="`background-color: ${languageColors[language]}`"
         />
-        <p>{{ language }}</p>
+        <p class="language-name">{{ language }}</p>
+        <p class="language-percentage">
+          (%{{ getLanguagePercentage(language, project.languages) }})
+        </p>
       </div>
     </div>
   </div>
@@ -64,6 +67,13 @@ export default {
     };
   },
   methods: {
+    getLanguagePercentage(langName, langValues) {
+      return (
+        (langValues[langName] /
+          Object.values(langValues).reduce((total, val) => total + val)) *
+        100
+      ).toFixed(2);
+    },
     downloadAsZipFile(url, filename) {
       const link = document.createElement("a");
       link.href = url;
