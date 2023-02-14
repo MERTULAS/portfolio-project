@@ -25,30 +25,36 @@
         Paste on Terminal
       </div>
     </div>
-    <div class="project-languages">
-      <div
-        v-for="language in Object.keys(project.languages)"
-        class="project-language"
-        :key="language"
-      >
-        <div
-          class="language-marker"
-          :style="`background-color: ${languageColors[language]}`"
+    <div class="body-block">
+      <div class="body-charts">
+        <Chart
+          v-if="false"
+          :dataSource="project.languages"
+          :barColors="languageColors"
+          miniChart
         />
-        <p class="language-name">{{ language }}</p>
-        <p class="language-percentage">
-          (%{{ getLanguagePercentage(language, project.languages) }})
-        </p>
+        <PieChart
+          :dataSource="project.languages"
+          :barColors="languageColors"
+          style="width: 160%; height: 160px;"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Chart from "./Chart.vue";
+import PieChart from "./PieChart.vue";
+
 export default {
   name: "ProjectCard",
   props: {
     project: { type: Object, default: () => {} },
+  },
+  components: {
+    Chart,
+    PieChart,
   },
   data() {
     return {
@@ -67,13 +73,6 @@ export default {
     };
   },
   methods: {
-    getLanguagePercentage(langName, langValues) {
-      return (
-        (langValues[langName] /
-          Object.values(langValues).reduce((total, val) => total + val)) *
-        100
-      ).toFixed(2);
-    },
     downloadAsZipFile(url, filename) {
       const link = document.createElement("a");
       link.href = url;
@@ -103,7 +102,7 @@ export default {
       this.isCopyInfoCardVisible = true;
       setTimeout(() => {
         this.isCopyInfoCardVisible = false;
-      }, 2000);
+      }, 3000);
     },
   },
 };
@@ -123,7 +122,7 @@ export default {
   flex-basis: 20%;
   max-width: 47%;
   min-width: 288px;
-  height: 30vh;
+  height: 33vh;
   border: 1px solid black;
 }
 
@@ -147,6 +146,7 @@ export default {
   position: relative;
   padding-bottom: 5px;
   border-bottom: 2px solid green;
+  margin-bottom: 10px;
 }
 
 .header-block .anticon {
@@ -200,19 +200,16 @@ export default {
   }
 }
 
-.project-language {
+.body-block {
+  height: 20vh;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.body-charts {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-start;
-}
-
-.language-marker {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.project-language p {
-  margin: 0 0 0 5px;
 }
 </style>

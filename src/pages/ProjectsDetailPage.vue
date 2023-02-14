@@ -2,7 +2,7 @@
   <div class="page">
     <Spinner :spinning="isSpinning" />
     <Tabs v-if="!isSpinning">
-      <Tab :tabName="'Project List'" icon="home" lazyLoading active>
+      <Tab :tabName="'Project List'" icon="unordered-list" lazyLoading>
         <div class="project-list">
           <project-card
             v-for="(project, index) in projectListResult"
@@ -11,8 +11,18 @@
           />
         </div>
       </Tab>
-      <Tab :tabName="'Analysis'" icon="rocket" lazyLoading>
-        <div class="project-list">PROJECTS ANALYSIS</div>
+      <Tab :tabName="'Analysis'" icon="bar-chart" lazyLoading>
+        <div>PROJECTS ANALYSIS</div>
+        <Chart
+          :dataSource="generalGitHubLangPercentages"
+          :height="400"
+          :barColors="languageColors"
+        />
+        <PieChart
+          style="margin-top: 10vh; height: 400px"
+          :dataSource="generalGitHubLangPercentages"
+          :barColors="languageColors"
+        />
       </Tab>
     </Tabs>
   </div>
@@ -23,6 +33,8 @@ import ProjectCard from "../components/ProjectCard.vue";
 import Spinner from "../components/Spinner.vue";
 import Tab from "../components/Tab.vue";
 import Tabs from "../components/Tabs.vue";
+import Chart from "../components/Chart.vue";
+import PieChart from "../components/PieChart.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -32,12 +44,26 @@ export default {
     Tabs,
     Tab,
     Spinner,
+    Chart,
+    PieChart,
   },
   data() {
     return {
       status_code: 0,
       projectListResult: [],
       isSpinning: false,
+      generalGitHubLangPercentages: {},
+      languageColors: {
+        Python: "#3572a5",
+        JavaScript: "#f1e05a",
+        C: "#555555",
+        "C++": "#f34b7d",
+        CSS: "#563d7c",
+        Vue: "#41b883",
+        "Jupyter Notebook": "#da5b0b",
+        HTML: "#e34c26",
+        Shell: "#89e051",
+      },
     };
   },
   computed: {
@@ -48,12 +74,59 @@ export default {
   watch: {
     projectList(val) {
       if (val) {
-        this.projectListResult = val.result;
+        this.initProjectList(val.result);
         this.isSpinning = false;
       }
     },
   },
   methods: {
+    generalGitHubAnalysisPreperation() {
+      this.projectListResult.forEach((project) => {
+        Object.keys(project.languages).forEach((language) => {
+          if (this.generalGitHubLangPercentages[language] === undefined) {
+            this.generalGitHubLangPercentages[language] =
+              project.languages[language];
+          } else
+            this.generalGitHubLangPercentages[language] +=
+              project.languages[language];
+        });
+      });
+
+      const generalGitHubLangPercentagesDenominator =
+        this.projectListResult.length * 100;
+
+      Object.keys(this.generalGitHubLangPercentages).forEach((lang) => {
+        this.generalGitHubLangPercentages[lang] = parseFloat(
+          (
+            (this.generalGitHubLangPercentages[lang] /
+              generalGitHubLangPercentagesDenominator) *
+            100
+          ).toFixed(2)
+        );
+      });
+    },
+    initProjectList(list) {
+      this.projectListResult = list.map((object) => {
+        return {
+          ...object,
+          languages: this.getProjectLanguagesPercentages(object.languages),
+        };
+      });
+
+      this.generalGitHubAnalysisPreperation();
+    },
+    getProjectLanguagesPercentages(languagesObject) {
+      let langValuesTotal = Object.values(languagesObject).reduce(
+        (total, langVal) => total + langVal
+      );
+      const newLangObject = {};
+      Object.keys(languagesObject).forEach((lang) => {
+        newLangObject[lang] = parseFloat(
+          ((languagesObject[lang] / langValuesTotal) * 100).toFixed(2)
+        );
+      });
+      return newLangObject;
+    },
     loadProjects() {
       this.isSpinning = true;
       this.$store.dispatch("getGitHubAPIData");
@@ -61,7 +134,7 @@ export default {
   },
   mounted() {
     if (this.projectList.status_code === 200)
-      this.projectListResult = this.projectList.result;
+      this.initProjectList(this.projectList.result);
     else this.loadProjects();
   },
 };

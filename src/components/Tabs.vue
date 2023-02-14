@@ -7,8 +7,8 @@
         :class="selectedTab === index ? 'active-tab' : ''"
         @click="selectTab(index)"
       >
+        <a-icon :type="tab.icon" />
         <p>{{ tab.tabName }}</p>
-        <!-- <a-icon :type="tab.icon" /> -->
       </li>
     </ul>
     <slot />
@@ -32,6 +32,13 @@ export default {
     this.selectedTab = this.defaultTab;
   },
   mounted() {
+    this.tabs = this.$children.map((tab) => {
+      return {
+        tabName: tab.tabName,
+        isActive: tab.isActive,
+        icon: tab.icon,
+      };
+    });
     this.selectedTab = this.defaultTab;
     let activeIndex = this.tabs.findIndex((tab) => tab.isActive === true);
     if (activeIndex === -1) {
@@ -43,7 +50,7 @@ export default {
   methods: {
     selectTab(tabIndex) {
       this.selectedTab = tabIndex;
-      this.tabs.forEach((tab, index) => {
+      this.$children.forEach((tab, index) => {
         tab.isActive = index === tabIndex;
       });
     },
@@ -67,6 +74,8 @@ export default {
   position: relative;
   line-height: 1;
   border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
 }
 
 .tabs li::after {
@@ -83,6 +92,10 @@ export default {
 
 .tabs li:hover::after {
   width: 100%;
+}
+
+.tabs li p {
+  margin: 0 5px;
 }
 
 .active-tab {

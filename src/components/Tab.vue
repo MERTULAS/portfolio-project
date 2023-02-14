@@ -33,4 +33,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.tab {
+  padding: 10px 50px;
+}
+</style>
