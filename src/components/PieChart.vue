@@ -58,6 +58,7 @@ export default {
         endRadian = (this.dataSource[data] / 100) * Math.PI * 2;
         beginRadian;
         this.ctx.fillStyle = this.barColors[data];
+        this.ctx.strokeStyle = this.barColors[data];
         this.ctx.arc(
           this.canvasWidth >> 1,
           this.canvasHeight >> 1,
