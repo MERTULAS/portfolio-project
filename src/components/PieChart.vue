@@ -79,21 +79,20 @@ export default {
 
 <style scoped>
 .chart-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .project-languages {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .project-language {
   display: flex;
   align-items: center;
   margin: 5px;
-
 }
 
 .language-marker {

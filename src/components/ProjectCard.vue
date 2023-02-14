@@ -36,7 +36,7 @@
         <PieChart
           :dataSource="project.languages"
           :barColors="languageColors"
-          style="width: 160%; height: 160px;"
+          style="width: 160%; height: 160px"
         />
       </div>
     </div>
