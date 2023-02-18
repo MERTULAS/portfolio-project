@@ -72,11 +72,11 @@ export default {
     }),
   },
   watch: {
-    projectList(val) {
-      if (val) {
-        this.initProjectList(val.result);
-        this.isSpinning = false;
-      }
+    projectList: {
+      handler(newVal) {
+        this.initProjectList(newVal.result);
+      },
+      deep: true,
     },
   },
   methods: {
@@ -104,13 +104,16 @@ export default {
           ).toFixed(2)
         );
       });
+
+      this.isSpinning = false;
     },
     initProjectList(list) {
       this.projectListResult = list.map((object) => {
-        return {
-          ...object,
-          languages: this.getProjectLanguagesPercentages(object.languages),
-        };
+        let assignedObject = Object.assign({}, object);
+        assignedObject.languages = this.getProjectLanguagesPercentages(
+          object.languages
+        );
+        return assignedObject;
       });
 
       this.generalGitHubAnalysisPreperation();
@@ -133,7 +136,7 @@ export default {
     },
   },
   mounted() {
-    if (this.projectList.status_code === 200)
+    if (this.projectList.status_code === 200) 
       this.initProjectList(this.projectList.result);
     else this.loadProjects();
   },
