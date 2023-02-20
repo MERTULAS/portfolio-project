@@ -1,7 +1,9 @@
 <template>
   <div class="navbar-menu">
     <div class="project-owner">
-      <h1>{{ projectOwner }}</h1>
+      <h1 @click="routeTo('/')" :data-logo="projectOwner">
+        {{ projectOwner }}
+      </h1>
     </div>
     <ul :class="clickedHamburger ? 'navbar-responsive' : ''">
       <li
@@ -30,6 +32,8 @@
 </template>
 
 <script>
+import customCursorAnimation from "../utils/utils.js";
+
 export default {
   name: "Navbar",
   data() {
@@ -37,7 +41,7 @@ export default {
       menuItems: [
         { title: "Home", path: "/", icon: "home" },
         { title: "My Projects", path: "/projects", icon: "code" },
-        { title: "Fun Page", path: "/fun", icon: "rocket" },
+        // { title: "Demos", path: "/demos", icon: "rocket" },
         { title: "About Me", path: "/about", icon: "user" },
       ],
       selectedMenuIndex: 0,
@@ -67,6 +71,12 @@ export default {
       this.clickedHamburger =
         event.currentTarget.innerWidth > 765 && this.clickedHamburger;
     });
+
+    [...this.$el.getElementsByTagName("li")].forEach((li) => {
+      customCursorAnimation(li);
+    });
+
+    customCursorAnimation(document.querySelector(".project-owner"));
   },
 };
 </script>
@@ -84,19 +94,42 @@ export default {
 }
 
 .project-owner {
-  z-index: 9999 !important;
-}
-
-.project-owner h1 {
-  font-weight: 500;
-  color: var(--navbar-font-color);
-  padding: 0px 15px;
-  margin: 0px 5px;
   border-right: 5px solid teal;
   border-left: 5px solid teal;
   border-radius: 10px;
-  /* border-bottom-right-radius: 0px; */
-  font-size: 25px;
+  z-index: 9999 !important;
+  cursor: pointer;
+  overflow: hidden;
+  height: fit-content;
+  padding: 0px 15px;
+}
+
+.project-owner:hover > h1 {
+  animation: text-marquee 2s linear infinite;
+}
+
+@keyframes text-marquee {
+  0% {
+    left: 0%;
+  }
+
+  100% {
+    left: -105%;
+  }
+}
+
+.project-owner h1::after {
+  content: attr(data-logo);
+  position: absolute;
+  transform: translateX(20px);
+  width: 100%;
+}
+.project-owner h1 {
+  font-weight: 500;
+  color: var(--navbar-font-color);
+  margin: 0px 5px;
+  font-size: 28px;
+  position: relative;
 }
 
 .navbar-menu ul {
@@ -116,6 +149,10 @@ export default {
   border-bottom: 3px solid transparent;
   display: flex;
   align-items: center;
+}
+
+.navbar-menu li:hover ~ #custom-cursor {
+  transform: scale(2) !important;
 }
 
 .menu-icon {

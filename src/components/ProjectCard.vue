@@ -46,6 +46,7 @@
 <script>
 import Chart from "./Chart.vue";
 import PieChart from "./PieChart.vue";
+import customCursorAnimation from "../utils/utils.js";
 
 export default {
   name: "ProjectCard",
@@ -71,6 +72,12 @@ export default {
         Shell: "#89e051",
       },
     };
+  },
+  mounted() {
+    customCursorAnimation(this.$el.querySelector(".header-block a"));
+    this.$el
+      .querySelector(".project-download-icons")
+      .childNodes.forEach((child) => customCursorAnimation(child));
   },
   methods: {
     downloadAsZipFile(url, filename) {

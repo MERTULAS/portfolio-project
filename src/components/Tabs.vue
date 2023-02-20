@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import customCursorAnimation from "../utils/utils.js";
+
 export default {
   name: "Tabs",
   props: {
@@ -30,6 +32,11 @@ export default {
   created() {
     this.tabs = this.$children;
     this.selectedTab = this.defaultTab;
+  },
+  updated() {
+    [...this.$el.getElementsByTagName("li")].forEach((li) =>
+      customCursorAnimation(li)
+    );
   },
   mounted() {
     this.tabs = this.$children.map((tab) => {

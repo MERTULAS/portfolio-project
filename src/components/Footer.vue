@@ -7,7 +7,10 @@
           :key="index"
         >
           <a :href="socialMediaObject.link" target="_blank">
-            <a-icon :type="socialMediaObject.icon" />
+            <a-icon
+              :type="socialMediaObject.icon"
+              :title="socialMediaObject.title"
+            />
           </a>
         </div>
       </div>
@@ -19,6 +22,8 @@
 </template>
 
 <script>
+import customCursorAnimation from "../utils/utils.js";
+
 export default {
   name: "Footer",
   data() {
@@ -26,27 +31,37 @@ export default {
       footerDate: new Date().getFullYear(),
       socialMediaLinks: [
         {
+          title: "LinkedIn",
           icon: "linkedin",
           link: "https://www.linkedin.com/in/mert-ulas/",
         },
         {
+          title: "GitHub",
           icon: "github",
           link: "https://github.com/MERTULAS",
         },
         {
+          title: "Twitter",
           icon: "twitter",
           link: "https://twitter.com/mertulaas",
         },
         {
+          title: "Instagram",
           icon: "instagram",
           link: "https://www.instagram.com/themertulas/?hl=tr",
         },
         {
+          title: "Youtube",
           icon: "youtube",
           link: "https://www.youtube.com/channel/UCIXpGQz894CXt0x1dSKVdxA",
         },
       ],
     };
+  },
+  mounted() {
+    [...this.$el.getElementsByTagName("a")].forEach((a) => {
+      customCursorAnimation(a);
+    });
   },
 };
 </script>

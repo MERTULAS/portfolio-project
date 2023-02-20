@@ -75,6 +75,17 @@ export default {
     },
   },
   methods: {
+    setCustomCursor() {
+      const customCursor = document.createElement("div");
+      customCursor.setAttribute("id", "custom-cursor");
+      customCursor.className = "custom-cursor";
+      document.body.appendChild(customCursor);
+      let cursorRect = customCursor.getBoundingClientRect();
+      window.addEventListener(`mousemove`, (e) => {
+        customCursor.style.left = `${e.clientX - (cursorRect.width >> 1)}px`;
+        customCursor.style.top = `${e.clientY - (cursorRect.height >> 1)}px`;
+      });
+    },
     pageInitialize() {
       this.pageWidth = window.innerWidth;
       this.pageHeight = window.innerHeight;
@@ -103,6 +114,9 @@ export default {
         return navigator.userAgent.match(toMatchItem);
       });
     },
+  },
+  created() {
+    this.setCustomCursor();
   },
   mounted() {
     this.pageInitialize();

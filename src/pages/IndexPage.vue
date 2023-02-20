@@ -3,13 +3,18 @@
     <Spinner :spinning="isSpinning" />
     <div class="page-body" v-if="!isSpinning">
       <div class="index-body">
-        <h1>{{ animatedText }}</h1>
+        <h1 class="animated-text">{{ animatedText }}</h1>
         <p>
           Hello, I am a Software Developer working on various topics. I work on
           Frontend Web Technologies, Game Algorithms, Deep Learning and Computer
           Graphics.
         </p>
       </div>
+    </div>
+    <div class="vue-m-for-mert">
+      <img src="../assets/logo.png" alt="vue-logo" class="vue-logo vue-1" />
+      <img src="../assets/logo.png" alt="vue-logo" class="vue-logo vue-2" />
+      <span class="animated-text"> </span>
     </div>
   </div>
 </template>
@@ -75,8 +80,41 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.vue-logo {
+  position: absolute;
+  animation: vueLogoAnimationRotate 1s forwards;
+  animation-delay: 2.1s;
+}
+
+.vue-2 {
+  visibility: hidden;
+  animation: vueLogoAnimationSlide 1s forwards;
+  animation-delay: 3.2s;
+}
+
+@keyframes vueLogoAnimationRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes vueLogoAnimationSlide {
+  from {
+    visibility: hidden;
+    transform: translateX(0) rotate(180deg);
+  }
+
+  to {
+    visibility: visible;
+    transform: translateX(100%) rotate(180deg);
+  }
+}
+
 .index-body * {
   color: white;
 }
@@ -90,7 +128,6 @@ export default {
   min-height: 67.5px;
   position: relative;
   width: fit-content;
-  font-style: italic;
 }
 
 .index-body p {
@@ -131,6 +168,9 @@ export default {
     rgba(31, 31, 31, 0.8),
     rgba(0, 0, 0, 0.5)
   );
+  z-index: 99;
+  user-select: none;
+  pointer-events: none;
 }
 
 @media screen and (max-width: 765px) {

@@ -6,6 +6,7 @@
 </template>
 
 <script>
+
 class QuadTree {
   constructor() {
     // QuadTree will be implemented.
@@ -56,15 +57,15 @@ export default {
       canvas: null,
       context: null,
       pointList: [],
-      isEnteredFunPage: false,
+      isEnteredDemosPage: false,
       mouseMoveListener: null,
     };
   },
   watch: {
     $route(val) {
-      this.isEnteredFunPage = val.name === "fun";
+      this.isEnteredDemosPage = val.name === "demos";
     },
-    isEnteredFunPage(val) {
+    isEnteredDemosPage(val) {
       if (val) {
         window.addEventListener("mousemove", this.mouseMove);
       } else {
@@ -97,14 +98,21 @@ export default {
       }
       requestAnimationFrame(this.animationLoop);
     },
-    mouseMove() {
+    mouseMove(event) {
       // points will escape from the mouse and will develop various game effects...;
+      this.pointList.forEach(point => {
+        let dist = point.x - event.clientX + point.y - event.clientY;
+        if (Math.abs(dist) <= 15) {
+          point.x +=  dist;
+          point.y += dist;
+        }
+      })
     },
   },
   mounted() {
     new QuadTree();
-    this.isEnteredFunPage = this.$route.name === "fun";
-    this.mouseMoveListener = this.mouseMove;
+    // this.isEnteredDemosPage = this.$route.name === "demos";
+    // this.mouseMoveListener = this.mouseMove;
     this.canvas = document.getElementById("canvas");
     this.context = this.canvas.getContext("2d");
     for (let i = 0; i < this.pointCount; i++) {

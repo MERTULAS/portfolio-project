@@ -136,7 +136,7 @@ export default {
     },
   },
   mounted() {
-    if (this.projectList.status_code === 200) 
+    if (this.projectList.status_code === 200)
       this.initProjectList(this.projectList.result);
     else this.loadProjects();
   },

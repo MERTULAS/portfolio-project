@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,12 +7,15 @@
   list-style: none;
   list-style-type: none;
   box-sizing: border-box;
-  font-family: Roboto, sans-serif;
+  font-family: 'Michroma', sans-serif;
+  cursor: none !important;
 }
 
 body {
   background-color: black !important;
+  overflow: hidden;
 }
+
 
 :root {
   /* --navbar-bg-color: rgb(37, 37, 37); */
@@ -41,4 +46,18 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(73, 192, 81, 1);
+}
+
+#custom-cursor {
+  background: center/cover url("../aim-cursor.png") no-repeat;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  transform: rotate(0deg) scale(1);
+  transition: .5s transform;
+}
+
+#custom-cursor.custom-cursor-hovered {
+  transform: rotate(135deg) scale(2);
 }
