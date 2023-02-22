@@ -13,8 +13,12 @@
       </div>
       <div class="job-experiences">
         <p>
-          <span> Experiences </span>
-          <a :href="`${fullPath}/data/MERT Ulas CV.pdf`" target="_blank">
+          <span class="bounce-header">
+            <span v-for="(char, index) in 'Experiences'.split('')" :key="index">
+              {{ char }}</span
+            ></span
+          >
+          <a :href="`${fullPath}/MERT Ulas CV.pdf`" target="_blank">
             <a-button type="primary">
               <a-icon type="download" /> Resume
             </a-button>

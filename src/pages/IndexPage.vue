@@ -4,7 +4,7 @@
     <div class="page-body" v-if="!isSpinning">
       <div class="index-body">
         <div>
-          <h1 class="animated-text">
+          <h1 class="animated-text bounce-header">
             <span
               v-for="(character, index) in animatedText.split('')"
               :key="index"
@@ -90,9 +90,7 @@ export default {
     },
   },
   updated() {
-    document.querySelectorAll(".animated-text span").forEach((span) => {
-      customCursorAnimation(span);
-    });
+    customCursorAnimation(this.$el.querySelector(".bounce-header"));
   },
   mounted() {
     this.pageInitialize();
@@ -156,35 +154,6 @@ export default {
   width: fit-content;
 }
 
-.animated-text span {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  border: 1px solid transparent;
-  transition: 0.5s;
-  transform: translate(0) scale(1);
-}
-.animated-text span:hover {
-  /* transform: scale(1.2) translateY(-10%); */
-  /* border: 1px solid green; */
-  /* border-radius: 5px; */
-  animation: bounceAnimation 0.2s ease-in-out;
-}
-
-@keyframes bounceAnimation {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(0.8);
-  }
-
-  100% {
-    transform: scale(1.2);
-  }
-}
-
 .index-body p {
   font-size: 20px;
   max-width: 450px;
@@ -229,11 +198,34 @@ export default {
     rgba(0, 0, 0, 0.5)
   );
   width: 47vw;
-  border-radius: 20px;
+  border-radius: 25px;
+  position: relative;
 }
+
+.index-body > div::before , .index-body > div::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-top: 10px solid rgba(134, 134, 134, 0.5);
+  border-bottom: 10px solid rgba(134, 134, 134, 0.5);
+}
+
+.index-body > div::before {
+  left: 0;
+  border-right: 10px solid transparent;
+}
+
+.index-body > div::after {
+  right: 0;
+  border-left: 10px solid transparent;
+}
+
+
 
 .index-body ul {
   display: flex;
+  width: 60%;
   flex-direction: column;
 }
 
@@ -257,6 +249,14 @@ export default {
   align-self: flex-end;
 }
 
+.techs li:nth-child(2n + 1) {
+  background-image: linear-gradient(
+    225deg,
+    rgba(134, 134, 134, 0.5),
+    rgba(31, 31, 31, 0.8),
+    rgba(0, 0, 0, 0.5)
+  );
+}
 .techs li::after, .techs li::before {
   content: '';
   position: absolute;
