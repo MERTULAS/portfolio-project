@@ -4,7 +4,8 @@
       <a
         :href="project.link"
         target="_blank"
-        style="text-transform: capitalize"
+        class="project-name"
+        :title="project.name"
         >{{
           ["-", "_"]
             .reduce(
@@ -36,7 +37,7 @@
         <PieChart
           :dataSource="project.languages"
           :barColors="languageColors"
-          style="width: 160%; height: 160px"
+          :chartWidth="160"
         />
       </div>
     </div>
@@ -127,10 +128,16 @@ export default {
   padding: 10px;
   border-radius: 5px;
   flex-basis: 20%;
-  max-width: 47%;
+  max-width: 47%; 
   min-width: 288px;
-  height: 33vh;
   border: 1px solid black;
+}
+
+.project-name {
+  text-transform: capitalize;
+  overflow: hidden;
+  width: 70%;
+  text-overflow: ellipsis;
 }
 
 .project-card-body a {
@@ -150,6 +157,7 @@ export default {
 .header-block {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: relative;
   padding-bottom: 5px;
   border-bottom: 2px solid green;

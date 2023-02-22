@@ -151,10 +151,6 @@ export default {
   align-items: center;
 }
 
-.navbar-menu li:hover ~ #custom-cursor {
-  transform: scale(2) !important;
-}
-
 .menu-icon {
   margin-right: 5px;
   font-size: 25px;

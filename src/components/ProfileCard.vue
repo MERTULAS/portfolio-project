@@ -12,7 +12,14 @@
         <p>{{ userProfileData.name }}</p>
       </div>
       <div class="job-experiences">
-        <p>Experiences</p>
+        <p>
+          <span> Experiences </span>
+          <a :href="`${fullPath}/data/MERT Ulas CV.pdf`" target="_blank">
+            <a-button type="primary">
+              <a-icon type="download" /> Resume
+            </a-button>
+          </a>
+        </p>
         <div
           class="experiences"
           v-for="(experience, index) in userProfileData.job_experience"
@@ -60,6 +67,7 @@
 <script>
 import GetProfileData from "../service/GetProfileData";
 import Spinner from "./Spinner.vue";
+import customCursorAnimation from "../utils/utils";
 
 export default {
   name: "ProfileCard",
@@ -70,7 +78,11 @@ export default {
     return {
       userProfileData: null,
       isSpinning: true,
+      fullPath: window.location.origin,
     };
+  },
+  updated() {
+    customCursorAnimation(this.$el.querySelector(".ant-btn"));
   },
   mounted() {
     this.loadProfileData();
@@ -218,6 +230,14 @@ export default {
 
 .job-experiences > p {
   font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ant-btn {
+  background-color: green !important;
+  border-color: green !important;
 }
 
 .experiences {

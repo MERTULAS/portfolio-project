@@ -3,24 +3,42 @@
     <Spinner :spinning="isSpinning" />
     <div class="page-body" v-if="!isSpinning">
       <div class="index-body">
-        <h1 class="animated-text">{{ animatedText }}</h1>
-        <p>
-          Hello, I am a Software Developer working on various topics. I work on
-          Frontend Web Technologies, Game Algorithms, Deep Learning and Computer
-          Graphics.
-        </p>
+        <div>
+          <h1 class="animated-text">
+            <span
+              v-for="(character, index) in animatedText.split('')"
+              :key="index"
+              >{{ character }}
+            </span>
+          </h1>
+          <p>Hello, I am a Software Developer</p>
+        </div>
+        <ul class="techs">
+          <li
+            v-for="tech in [
+              'Web Technologies',
+              'Game Algorithms',
+              'Deep Learning',
+              'Computer Graphics',
+            ]"
+            :key="tech"
+          >
+            {{ tech }}
+          </li>
+        </ul>
       </div>
-    </div>
-    <div class="vue-m-for-mert">
-      <img src="../assets/logo.png" alt="vue-logo" class="vue-logo vue-1" />
-      <img src="../assets/logo.png" alt="vue-logo" class="vue-logo vue-2" />
-      <span class="animated-text"> </span>
+      <div class="vue-m-for-mert">
+        <img src="../assets/logo.png" alt="vue-logo" class="vue-logo vue-1" />
+        <img src="../assets/logo.png" alt="vue-logo" class="vue-logo vue-2" />
+        <span class="animated-text"> </span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Spinner from "@/components/Spinner.vue";
+import customCursorAnimation from "../utils/utils.js";
 
 export default {
   name: "IndexPage",
@@ -29,7 +47,7 @@ export default {
   },
   data() {
     return {
-      animatedText: "Welcome to my website",
+      animatedText: "Welcome  to  my  website",
       textAnimationTimer: null,
       isSpinning: true,
     };
@@ -71,6 +89,11 @@ export default {
       this.textAnimation();
     },
   },
+  updated() {
+    document.querySelectorAll(".animated-text span").forEach((span) => {
+      customCursorAnimation(span);
+    });
+  },
   mounted() {
     this.pageInitialize();
   },
@@ -81,6 +104,9 @@ export default {
 </script>
 
 <style scoped>
+.vue-m-for-mert {
+  opacity: 0.4;
+}
 .vue-logo {
   position: absolute;
   animation: vueLogoAnimationRotate 1s forwards;
@@ -130,6 +156,35 @@ export default {
   width: fit-content;
 }
 
+.animated-text span {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  border: 1px solid transparent;
+  transition: 0.5s;
+  transform: translate(0) scale(1);
+}
+.animated-text span:hover {
+  /* transform: scale(1.2) translateY(-10%); */
+  /* border: 1px solid green; */
+  /* border-radius: 5px; */
+  animation: bounceAnimation 0.2s ease-in-out;
+}
+
+@keyframes bounceAnimation {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
+}
+
 .index-body p {
   font-size: 20px;
   max-width: 450px;
@@ -160,17 +215,65 @@ export default {
   position: absolute;
   left: 5vw;
   top: 15vh;
+  z-index: 5;
+}
+
+.index-body > * {
   padding: 25px;
-  border-radius: 20px;
+}
+.index-body > div {
   background-image: linear-gradient(
     135deg,
     rgba(134, 134, 134, 0.5),
     rgba(31, 31, 31, 0.8),
     rgba(0, 0, 0, 0.5)
   );
-  z-index: 99;
-  user-select: none;
-  pointer-events: none;
+  width: 47vw;
+  border-radius: 20px;
+}
+
+.index-body ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.techs li {
+  background-image: linear-gradient(
+    135deg,
+    rgba(134, 134, 134, 0.5),
+    rgba(31, 31, 31, 0.8),
+    rgba(0, 0, 0, 0.5)
+  );
+  border-radius: 25px;
+  padding: 25px 15px;
+  margin: 20px;
+  width: fit-content;
+  transition: .5s;
+  position: relative;
+  font-size: 20px;
+}
+
+.techs li:nth-child(2n) {
+  align-self: flex-end;
+}
+
+.techs li::after, .techs li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-top: 10px solid rgba(134, 134, 134, 0.5);
+  border-bottom: 10px solid rgba(134, 134, 134, 0.5);
+}
+
+.techs li::before {
+  left: 0;
+  border-right: 10px solid transparent;
+}
+
+.techs li::after {
+  right: 0;
+  border-left: 10px solid transparent;
 }
 
 @media screen and (max-width: 765px) {

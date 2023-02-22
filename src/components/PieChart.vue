@@ -26,6 +26,7 @@ export default {
     randomColors: { type: Boolean, default: () => false },
     barColors: { type: Object, default: () => {} },
     miniChart: { type: Boolean, default: () => false },
+    chartWidth: { type: Number, default: () => 160 },
   },
   data() {
     return {
@@ -39,8 +40,8 @@ export default {
   mounted() {
     this.canvas = this.$el.querySelector("#pie-chart");
     this.ctx = this.canvas.getContext("2d");
-    this.canvasWidth = this.$el.getBoundingClientRect().height;
-    this.canvasHeight = this.$el.getBoundingClientRect().height;
+    this.canvasWidth = this.chartWidth;
+    this.canvasHeight = this.chartWidth;
     this.canvas.width = this.canvasWidth;
     this.canvas.height = this.canvasHeight;
     this.createPie();

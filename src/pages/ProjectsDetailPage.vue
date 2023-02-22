@@ -2,7 +2,7 @@
   <div class="page">
     <Spinner :spinning="isSpinning" />
     <Tabs v-if="!isSpinning">
-      <Tab :tabName="'Project List'" icon="unordered-list" lazyLoading>
+      <Tab :tabName="'Project List'" icon="unordered-list">
         <div class="project-list">
           <project-card
             v-for="(project, index) in projectListResult"
@@ -19,9 +19,10 @@
           :barColors="languageColors"
         />
         <PieChart
-          style="margin-top: 10vh; height: 400px"
+          style="margin-top: 10vh"
           :dataSource="generalGitHubLangPercentages"
           :barColors="languageColors"
+          :chartWidth="400"
         />
       </Tab>
     </Tabs>
@@ -134,6 +135,35 @@ export default {
       this.isSpinning = true;
       this.$store.dispatch("getGitHubAPIData");
     },
+  },
+  updated() {
+    const headerBlocksMaxHeight = Math.max(
+      ...[...document.querySelectorAll(".header-block")].map(
+        (projectCardHeader) => projectCardHeader.getBoundingClientRect().height
+      )
+    );
+
+    const chartBlocksMaxHeight = Math.max(
+      ...[...document.querySelectorAll(".chart-wrapper")].map(
+        (projectCardHeader) => projectCardHeader.getBoundingClientRect().height
+      )
+    );
+
+    document
+      .querySelectorAll(".header-block")
+      .forEach(
+        (projectCardHeader) =>
+          (projectCardHeader.style.height = `${headerBlocksMaxHeight}px`)
+      );
+
+    document
+      .querySelectorAll(".project-card-body")
+      .forEach(
+        (projectCard) =>
+          (projectCard.style.height = `${
+            chartBlocksMaxHeight + headerBlocksMaxHeight + 50
+          }px`)
+      );
   },
   mounted() {
     if (this.projectList.status_code === 200)

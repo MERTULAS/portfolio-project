@@ -117,13 +117,13 @@ export default {
   },
   created() {
     this.setCustomCursor();
+    this.pointCount = this.detectMob() ? 20 : 120;
   },
   mounted() {
     this.pageInitialize();
     document.getElementsByTagName("title")[0].innerHTML =
       process.env.VUE_APP_PROJECT_OWNER + " - Portfolio";
     this.progressInterval = setInterval(this.progressBar, 150);
-    // this.pointCount = this.detectMob() ? 30 : 120;
   },
 };
 </script>

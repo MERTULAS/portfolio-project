@@ -56,6 +56,7 @@ body {
   pointer-events: none;
   transform: rotate(0deg) scale(1);
   transition: .5s transform;
+  z-index: 99;
 }
 
 #custom-cursor.custom-cursor-hovered {
