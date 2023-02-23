@@ -18,7 +18,7 @@
               {{ char }}</span
             ></span
           >
-          <a :href="`./data/MERT Ulas CV.pdf`" target="_blank">
+          <a :href="`/data/MERT Ulas CV.pdf`" target="_blank">
             <a-button type="primary">
               <a-icon type="download" /> Resume
             </a-button>
