@@ -89,6 +89,7 @@ export default {
     customCursorAnimation(this.$el.querySelector(".ant-btn"));
   },
   mounted() {
+    console.log(window.location.origin, this.fullPath);
     this.loadProfileData();
   },
   methods: {
