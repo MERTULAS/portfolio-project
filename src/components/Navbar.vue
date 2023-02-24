@@ -108,6 +108,10 @@ export default {
   animation: text-marquee 2s linear infinite;
 }
 
+.project-owner h1:hover::after {
+  display: initial;
+}
+
 @keyframes text-marquee {
   0% {
     left: 0%;
@@ -123,6 +127,7 @@ export default {
   position: absolute;
   transform: translateX(20px);
   width: 100%;
+  display: none;
 }
 .project-owner h1 {
   font-weight: 500;
@@ -219,7 +224,7 @@ export default {
   transform: translateY(-180%) rotate(-45deg);
 }
 
-@media screen and (max-width: 765px) {
+@media screen and (max-width: 820px) {
   .navbar-menu ul {
     display: none;
   }

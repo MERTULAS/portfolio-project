@@ -21,9 +21,12 @@
               'Deep Learning',
               'Computer Graphics',
             ]"
+            class="bounce-header"
             :key="tech"
           >
-            {{ tech }}
+            <span v-for="char in tech" :key="char + Math.random()">
+              {{ char }}
+            </span>
           </li>
         </ul>
       </div>
@@ -90,7 +93,9 @@ export default {
     },
   },
   updated() {
-    customCursorAnimation(this.$el.querySelector(".bounce-header"));
+    this.$el
+      .querySelectorAll(".bounce-header")
+      .forEach((bounceHeader) => customCursorAnimation(bounceHeader));
   },
   mounted() {
     this.pageInitialize();
@@ -102,11 +107,18 @@ export default {
 </script>
 
 <style scoped>
+.page-body {
+  position: relative;
+}
 .vue-m-for-mert {
   opacity: 0.4;
+  pointer-events: none;
+  display: none;
 }
 .vue-logo {
   position: absolute;
+  left: 0;
+  top: 0;
   animation: vueLogoAnimationRotate 1s forwards;
   animation-delay: 2.1s;
 }
@@ -148,7 +160,7 @@ export default {
 }
 
 .index-body h1 {
-  font-size: 45px;
+  font-size: 30px;
   min-height: 67.5px;
   position: relative;
   width: fit-content;
@@ -157,7 +169,7 @@ export default {
 .index-body p {
   font-size: 20px;
   max-width: 450px;
-  position: relative;
+  margin: 0;
 }
 
 .index-body h1::after {
@@ -181,15 +193,9 @@ export default {
 }
 
 .index-body {
-  position: absolute;
-  left: 5vw;
-  top: 15vh;
-  z-index: 5;
-}
-
-.index-body > * {
   padding: 25px;
 }
+
 .index-body > div {
   background-image: linear-gradient(
     135deg,
@@ -197,18 +203,20 @@ export default {
     rgba(31, 31, 31, 0.8),
     rgba(0, 0, 0, 0.5)
   );
-  width: 47vw;
+  padding: 25px;
+  width: fit-content;
   border-radius: 25px;
   position: relative;
 }
 
-.index-body > div::before , .index-body > div::after {
-  content: '';
+.index-body > div::before,
+.index-body > div::after {
+  content: "";
   position: absolute;
   top: 0;
   height: 100%;
-  border-top: 10px solid rgba(134, 134, 134, 0.5);
-  border-bottom: 10px solid rgba(134, 134, 134, 0.5);
+  border-top: 10px solid green;
+  border-bottom: 10px solid green;
 }
 
 .index-body > div::before {
@@ -221,12 +229,11 @@ export default {
   border-left: 10px solid transparent;
 }
 
-
-
 .index-body ul {
+  width: 40%;
   display: flex;
-  width: 60%;
   flex-direction: column;
+  margin-top: 10px;
 }
 
 .techs li {
@@ -238,11 +245,16 @@ export default {
   );
   border-radius: 25px;
   padding: 25px 15px;
-  margin: 20px;
+  margin-bottom: 5px;
   width: fit-content;
-  transition: .5s;
+  transition: 0.5s;
   position: relative;
   font-size: 20px;
+  background-color: rgba(0, 255, 125, 0.3);
+}
+
+.techs li:last-child {
+  margin-bottom: 0;
 }
 
 .techs li:nth-child(2n) {
@@ -257,13 +269,14 @@ export default {
     rgba(0, 0, 0, 0.5)
   );
 }
-.techs li::after, .techs li::before {
-  content: '';
+.techs li::after,
+.techs li::before {
+  content: "";
   position: absolute;
   top: 0;
   height: 100%;
-  border-top: 10px solid rgba(134, 134, 134, 0.5);
-  border-bottom: 10px solid rgba(134, 134, 134, 0.5);
+  border-top: 10px solid green;
+  border-bottom: 10px solid green;
 }
 
 .techs li::before {
@@ -278,7 +291,7 @@ export default {
 
 @media screen and (max-width: 765px) {
   .index-body h1 {
-    font-size: 28px;
+    font-size: 24px;
     min-height: 30px;
   }
 
@@ -287,6 +300,29 @@ export default {
   }
 
   .index-body p {
+    font-size: 16px;
+  }
+
+  .index-body ul {
+    width: 100%;
+  }
+
+  .techs li {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .index-body h1 {
+    font-size: 28px;
+    min-height: 30px;
+  }
+
+  .index-body p {
+    font-size: 16px;
+  }
+
+  .techs li {
     font-size: 16px;
   }
 }
